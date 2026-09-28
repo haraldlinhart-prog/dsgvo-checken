@@ -296,10 +296,13 @@ a:hover { text-decoration: underline; }
   margin: 24px auto 0;
   text-align: left;
 }
-.badgeGateIcon {
-  font-size: 2.5rem;
+.badgeSiegelPreview {
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+}
+.badgeSiegelPreview img {
+  display: inline-block;
+  filter: drop-shadow(0 4px 16px rgba(59,130,246,.25));
 }
 .badgeGateTitle {
   font-size: 1.25rem;

@@ -49,7 +49,6 @@ export async function POST(req: NextRequest) {
 
   const parsedUrl = new URL(url);
   const domain = parsedUrl.hostname.replace(/^www\./, '');
-  const badgeImgSrc = `https://dsgvo-checken.de/badge/${domain}.svg`;
   const checks: CheckResult[] = [];
 
   // 1. SSL
@@ -105,20 +104,23 @@ export async function POST(req: NextRequest) {
 
   const lc = html.toLowerCase();
 
-  // --- Badge check ---
+  // --- Badge / Siegel check ---
+  // Look for either the siegel PNG or the dynamic SVG badge
   const hasBadge =
+    lc.includes('dsgvo-checken.de/siegel.png') ||
     lc.includes(`dsgvo-checken.de/badge/${domain}`) ||
     lc.includes(`dsgvo-checken.de/badge/www.${domain}`);
 
+  const siegelHtml = `<a href="https://dsgvo-checken.de" target="_blank" rel="noopener noreferrer" title="DSGVO-geprüft von dsgvo-checken.de">\n  <img src="https://dsgvo-checken.de/siegel.png" alt="DSGVO-geprüft" width="120" height="120">\n</a>`;
+
   if (!hasBadge) {
-    // Domain not yet registered or badge not embedded — return requiresBadge signal
-    // Register domain so badge SVG is served (unverified state)
+    // Register domain (unverified) so the dynamic badge SVG is served
     await supabaseUpsert(domain, false, []);
     return NextResponse.json({
       requiresBadge: true,
       domain,
       badgeUrl: `https://dsgvo-checken.de/badge/${domain}.svg`,
-      badgeHtml: `<a href="https://dsgvo-checken.de" target="_blank" rel="noopener noreferrer">\n  <img src="${badgeImgSrc}" alt="DSGVO-geprüft von dsgvo-checken.de" width="220" height="54">\n</a>`,
+      badgeHtml: siegelHtml,
     });
   }
 

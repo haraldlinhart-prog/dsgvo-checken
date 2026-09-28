@@ -103,7 +103,7 @@ export default function CheckForm() {
           {loading ? (
             <><span className="spinner" aria-hidden="true" />Prüfe…</>
           ) : result?.requiresBadge ? (
-            'Badge prüfen & Check starten'
+            'Siegel prüfen & Check starten'
           ) : (
             'Jetzt prüfen'
           )}
@@ -116,16 +116,19 @@ export default function CheckForm() {
       {result?.requiresBadge && (
         <section id="results" className="badgeGate">
           <div className="badgeGateInner">
-            <div className="badgeGateIcon">🛡️</div>
-            <h2 className="badgeGateTitle">Erst Badge einbinden — dann kostenlos prüfen</h2>
+            <div className="badgeSiegelPreview">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/siegel.png" alt="DSGVO-geprüft Siegel" width="140" height="140" />
+            </div>
+            <h2 className="badgeGateTitle">Erst Siegel einbinden — dann kostenlos prüfen</h2>
             <p className="badgeGateDesc">
-              Das Badge zeigt Ihren Besuchern, dass Sie aktiv auf DSGVO-Konformität achten —
-              und schützt Sie als sichtbares Zeichen aktiver Compliance vor Abmahnungen.
+              Das Siegel zeigt Ihren Besuchern aktive DSGVO-Compliance —
+              und bietet als sichtbares Prüfzeichen Schutz vor Abmahnungen.
             </p>
 
             <ol className="badgeSteps">
               <li>
-                <strong>Kopieren Sie diesen HTML-Code</strong> und fügen Sie ihn in den Footer oder die Datenschutzseite Ihrer Website ein:
+                <strong>Kopieren Sie diesen HTML-Code</strong> und fügen Sie das Siegel in den Footer oder die Datenschutzseite Ihrer Website ein:
               </li>
             </ol>
 
@@ -141,28 +144,28 @@ export default function CheckForm() {
             </div>
 
             <div className="badgePreview">
-              <p className="badgePreviewLabel">Vorschau des Badges auf Ihrer Website:</p>
+              <p className="badgePreviewLabel">So sieht das Siegel auf Ihrer Website aus:</p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={result.badgeUrl}
-                alt="DSGVO-geprüft Badge Vorschau"
-                width="220"
-                height="54"
+                src="/siegel.png"
+                alt="DSGVO-geprüft Siegel Vorschau"
+                width="120"
+                height="120"
                 style={{ display: 'block', margin: '0 auto' }}
               />
             </div>
 
             <ol className="badgeSteps" start={2}>
               <li>
-                <strong>Publizieren Sie Ihre Website</strong> mit dem Badge.
+                <strong>Publizieren Sie Ihre Website</strong> mit dem Siegel.
               </li>
               <li>
-                <strong>Klicken Sie auf &ldquo;Badge prüfen & Check starten&rdquo;</strong> oben — wir erkennen das Badge automatisch und starten den vollständigen DSGVO-Check.
+                <strong>Klicken Sie auf &ldquo;Siegel prüfen & Check starten&rdquo;</strong> oben — wir erkennen das Siegel automatisch und starten den vollständigen DSGVO-Check.
               </li>
             </ol>
 
             <p className="badgeGateNote">
-              💡 Das Badge bleibt dauerhaft aktiv und zeigt das letzte Prüfdatum. So lange es eingebunden ist, können Sie jederzeit einen neuen Check starten.
+              💡 Das Siegel schützt Sie als sichtbares Prüfzeichen. So lange es eingebunden ist, können Sie jederzeit einen neuen Check starten und das Prüfdatum aktualisieren.
             </p>
           </div>
         </section>
