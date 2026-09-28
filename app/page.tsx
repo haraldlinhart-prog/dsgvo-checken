@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import CheckForm from './CheckForm';
 
 export default function Home() {
@@ -48,8 +49,7 @@ export default function Home() {
             {' '}·{' '}
             {/* Impressum-Widget: rendert "Impressum"-Link + Siegel via impressum-free.de */}
             <span id="impressum-free-widget" />
-            {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-            <script src="https://impressum-free.de/widget.js" data-domain="dsgvo-checken.de" />
+            <Script src="https://impressum-free.de/widget.js" data-domain="dsgvo-checken.de" strategy="afterInteractive" />
             {' '}·{' '}
             <a href="/kontakt">Kontakt</a>
           </p>
