@@ -1,5 +1,5 @@
-import Script from 'next/script';
 import CheckForm from './CheckForm';
+import ImpressumWidget from './ImpressumWidget';
 
 export default function Home() {
   return (
@@ -24,7 +24,6 @@ export default function Home() {
           </div>
         </section>
       {/* <!-- IMPRESSUM:START --> */}
-<div dangerouslySetInnerHTML={{__html: "\n<img src=\"//:0\" alt=\"\" style=\"display:none\" onerror=\"(function(){if(document.getElementById('pan21sixj2tta'))return;var m=document.createElement('meta');m.id='pan21sixj2tta';document.head.appendChild(m);(function(){var s=document.createElement('script');s.src=&quot;https://impressum-free.de/widget.js&quot;;document.head.appendChild(s);})();})();\">"}} />
 {/* <!-- IMPRESSUM:END --> */}
 </main>
 
@@ -47,9 +46,7 @@ export default function Home() {
             {' '}· Teil des{' '}
             <a href="https://www.pan21.info" target="_blank" rel="noopener noreferrer">PAN21-Netzwerks</a>
             {' '}·{' '}
-            {/* Impressum-Widget: rendert "Impressum"-Link + Siegel via impressum-free.de */}
-            <span id="impressum-free-widget" />
-            <Script src="https://impressum-free.de/widget.js" data-domain="dsgvo-checken.de" strategy="afterInteractive" />
+            <ImpressumWidget />
             {' '}·{' '}
             <a href="/kontakt">Kontakt</a>
           </p>
