@@ -48,6 +48,8 @@ export default function Home() {
             {' '}·{' '}
             <ImpressumWidget />
             {' '}·{' '}
+            <a href="/datenschutz">Datenschutz</a>
+            {' '}·{' '}
             <a href="/kontakt">Kontakt</a>
           </p>
         </footer>
