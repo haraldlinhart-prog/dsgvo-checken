@@ -1,6 +1,12 @@
-import CheckForm from './CheckForm';
+import ContactForm from './ContactForm';
+import type { Metadata } from 'next';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Kontakt | dsgvo-checken.de',
+  description: 'Fragen zu DSGVO-Compliance? Schreiben Sie uns — wir helfen Ihnen weiter.',
+};
+
+export default function KontaktPage() {
   return (
     <>
       <header className="header">
@@ -12,30 +18,22 @@ export default function Home() {
       </header>
 
       <main>
-        <section className="hero">
+        <section className="hero" style={{ paddingBottom: '0' }}>
           <div className="wrap">
-            <h1>Ist Ihre Website DSGVO-konform?</h1>
+            <h1>Kontakt</h1>
             <p>
-              Kostenloser Schnellcheck: URL eingeben, Ergebnis sofort sehen —
-              Datenschutzerklärung, Impressum, Cookie-Banner, Google Fonts, Tracking und mehr.
+              Fragen zu DSGVO-Compliance, zum Siegel oder zur professionellen Beratung?
+              Schreiben Sie uns — wir antworten in der Regel innerhalb von 24 Stunden.
             </p>
-            <CheckForm />
           </div>
         </section>
+
+        <div className="wrap">
+          <ContactForm />
+        </div>
       </main>
 
       <div className="wrap">
-        <section className="cta">
-          <h2>Professionelle Hilfe gesucht?</h2>
-          <p>
-            Wir sind echte Webmaster — Server, Domains, Datenbanken, Formulare, Automatisierung.
-            Beschreiben Sie Ihr Problem und nennen Sie Ihren Preis.
-          </p>
-          <a className="ctaBtn" href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">
-            Zu webmaster.plus →
-          </a>
-        </section>
-
         <footer className="footer">
           <p>
             Ein Tool von{' '}
@@ -45,7 +43,7 @@ export default function Home() {
             {' '}·{' '}
             <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">Impressum & Datenschutz</a>
             {' '}·{' '}
-            <a href="/kontakt">Kontakt</a>
+            <a href="/">DSGVO-Check starten</a>
           </p>
         </footer>
       </div>

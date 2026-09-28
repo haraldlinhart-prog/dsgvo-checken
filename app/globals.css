@@ -404,6 +404,114 @@ a:hover { text-decoration: underline; }
 .footer a { color: var(--muted); }
 .footer a:hover { color: var(--fg); }
 
+/* Contact form */
+.contactForm {
+  max-width: 560px;
+  margin: 32px auto 48px;
+}
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.contactField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.contactField label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.contactField input,
+.contactField select,
+.contactField textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color .2s;
+  resize: vertical;
+}
+.contactField input:focus,
+.contactField select:focus,
+.contactField textarea:focus { border-color: var(--accent); }
+.contactField input::placeholder,
+.contactField textarea::placeholder { color: var(--muted); }
+.contactField select { cursor: pointer; }
+.contactHoneypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+.contactPrivacy {
+  margin-bottom: 16px;
+}
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .85rem;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1.5;
+}
+.checkboxLabel input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.contactNote {
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: 12px;
+  text-align: center;
+}
+.contactSuccess {
+  text-align: center;
+  padding: 48px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.contactSuccessIcon {
+  width: 56px;
+  height: 56px;
+  background: var(--green-bg);
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--green);
+  margin: 0 auto 20px;
+  font-weight: 700;
+}
+.contactSuccess h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+.contactSuccess p {
+  color: var(--muted);
+}
+
+@media (max-width: 520px) {
+  .contactGrid { grid-template-columns: 1fr; }
+}
+
 /* Loading spinner */
 .spinner {
   display: inline-block;
