@@ -13,6 +13,10 @@ interface ApiResponse {
   url: string;
   checks: CheckResult[];
   error?: string;
+  requiresBadge?: boolean;
+  domain?: string;
+  badgeUrl?: string;
+  badgeHtml?: string;
 }
 
 const TOOLS = [
@@ -31,6 +35,7 @@ export default function CheckForm() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ApiResponse | null>(null);
   const [apiError, setApiError] = useState('');
+  const [copied, setCopied] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -38,6 +43,7 @@ export default function CheckForm() {
     setLoading(true);
     setResult(null);
     setApiError('');
+    setCopied(false);
     try {
       const resp = await fetch('/api/check', {
         method: 'POST',
@@ -60,7 +66,17 @@ export default function CheckForm() {
     }
   }
 
-  const counts = result
+  async function handleCopy(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback: select the textarea
+    }
+  }
+
+  const counts = result && !result.requiresBadge
     ? {
         green: result.checks.filter((c) => c.status === 'green').length,
         yellow: result.checks.filter((c) => c.status === 'yellow').length,
@@ -86,6 +102,8 @@ export default function CheckForm() {
         <button className="checkBtn" type="submit" disabled={loading}>
           {loading ? (
             <><span className="spinner" aria-hidden="true" />Prüfe…</>
+          ) : result?.requiresBadge ? (
+            'Badge prüfen & Check starten'
           ) : (
             'Jetzt prüfen'
           )}
@@ -94,11 +112,72 @@ export default function CheckForm() {
 
       {apiError && <div className="errorMsg">{apiError}</div>}
 
+      {/* Badge gate */}
+      {result?.requiresBadge && (
+        <section id="results" className="badgeGate">
+          <div className="badgeGateInner">
+            <div className="badgeGateIcon">🛡️</div>
+            <h2 className="badgeGateTitle">Erst Badge einbinden — dann kostenlos prüfen</h2>
+            <p className="badgeGateDesc">
+              Das Badge zeigt Ihren Besuchern, dass Sie aktiv auf DSGVO-Konformität achten —
+              und schützt Sie als sichtbares Zeichen aktiver Compliance vor Abmahnungen.
+            </p>
+
+            <ol className="badgeSteps">
+              <li>
+                <strong>Kopieren Sie diesen HTML-Code</strong> und fügen Sie ihn in den Footer oder die Datenschutzseite Ihrer Website ein:
+              </li>
+            </ol>
+
+            <div className="badgeCodeWrap">
+              <pre className="badgeCode">{result.badgeHtml}</pre>
+              <button
+                className="badgeCopyBtn"
+                onClick={() => handleCopy(result.badgeHtml ?? '')}
+                type="button"
+              >
+                {copied ? '✓ Kopiert!' : 'Code kopieren'}
+              </button>
+            </div>
+
+            <div className="badgePreview">
+              <p className="badgePreviewLabel">Vorschau des Badges auf Ihrer Website:</p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={result.badgeUrl}
+                alt="DSGVO-geprüft Badge Vorschau"
+                width="220"
+                height="54"
+                style={{ display: 'block', margin: '0 auto' }}
+              />
+            </div>
+
+            <ol className="badgeSteps" start={2}>
+              <li>
+                <strong>Publizieren Sie Ihre Website</strong> mit dem Badge.
+              </li>
+              <li>
+                <strong>Klicken Sie auf &ldquo;Badge prüfen & Check starten&rdquo;</strong> oben — wir erkennen das Badge automatisch und starten den vollständigen DSGVO-Check.
+              </li>
+            </ol>
+
+            <p className="badgeGateNote">
+              💡 Das Badge bleibt dauerhaft aktiv und zeigt das letzte Prüfdatum. So lange es eingebunden ist, können Sie jederzeit einen neuen Check starten.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* Results */}
-      {result && (
+      {result && !result.requiresBadge && (
         <section id="results" className="results">
           <p className="resultsUrl">
-            Ergebnis für: <a href={result.url} target="_blank" rel="noopener noreferrer">{result.url}</a>
+            Ergebnis für:{' '}
+            <a href={result.url} target="_blank" rel="noopener noreferrer">
+              {result.url}
+            </a>
+            {' '}·{' '}
+            <span className="badgeVerifiedChip">🛡️ DSGVO-geprüft</span>
           </p>
 
           {counts && (
