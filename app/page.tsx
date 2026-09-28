@@ -46,7 +46,10 @@ export default function Home() {
             {' '}· Teil des{' '}
             <a href="https://www.pan21.info" target="_blank" rel="noopener noreferrer">PAN21-Netzwerks</a>
             {' '}·{' '}
-            <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">Impressum & Datenschutz</a>
+            {/* Impressum-Widget: rendert "Impressum"-Link + Siegel via impressum-free.de */}
+            <span id="impressum-free-widget" />
+            {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+            <script src="https://impressum-free.de/widget.js" data-domain="dsgvo-checken.de" />
             {' '}·{' '}
             <a href="/kontakt">Kontakt</a>
           </p>
