@@ -619,3 +619,6 @@ img { max-width: 100%; height: auto; }
   .badgeCode { padding-right: 16px; }
   .badgeCopyBtn { position: static; display: block; width: 100%; margin-top: 8px; padding: 10px 12px; font-size: .85rem; }
 }
+
+/* Result cards also sit inside the centered hero — keep them left-aligned */
+.checkList, .summaryBar { text-align: left; }
