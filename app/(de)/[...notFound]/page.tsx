@@ -1,8 +1,15 @@
-import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import NotFoundContent from '../../NotFoundContent';
 
-// Catch-all for unknown URLs: with two root layouts ((de) and (en)) Next.js
-// would otherwise show its unstyled default 404 page. Calling notFound() here
-// renders app/(de)/not-found.tsx inside the German layout (status 404).
+// Styled German 404 page for unknown URLs. With two root layouts ((de) and (en))
+// Next.js 14 cannot render a not-found.tsx for unmatched routes, so this catch-all
+// renders the 404 content itself; middleware.ts sets the HTTP status to 404.
+export const metadata: Metadata = {
+  title: 'Seite nicht gefunden | dsgvo-checken.de',
+  robots: { index: false },
+  openGraph: null,
+};
+
 export default function CatchAll() {
-  notFound();
+  return <NotFoundContent lang="de" />;
 }
