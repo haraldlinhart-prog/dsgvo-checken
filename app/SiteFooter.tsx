@@ -2,9 +2,10 @@ import ImpressumWidget from './ImpressumWidget';
 import type { Lang } from './i18n';
 
 /**
- * Shared footer for all pages. The seal below the links is the site's own
- * dynamic badge — dsgvo-checken.de embeds the same seal it asks others to
- * embed, so its own check finds it (absolute URL on purpose).
+ * Shared footer for all pages. Second row: the impressum-free.de widget
+ * (Impressum link + seal) next to the site's own dynamic DSGVO badge —
+ * dsgvo-checken.de embeds the same seal it asks others to embed, so its own
+ * check finds it (absolute URL on purpose).
  */
 export default function SiteFooter({ lang = 'de' }: { lang?: Lang }) {
   const en = lang === 'en';
@@ -18,8 +19,6 @@ export default function SiteFooter({ lang = 'de' }: { lang?: Lang }) {
           {en ? 'PAN21 network' : 'PAN21-Netzwerks'}
         </a>
         {' '}·{' '}
-        <ImpressumWidget lang={lang} />
-        {' '}·{' '}
         {en ? (
           <a href="/datenschutz" hrefLang="de">Privacy policy (German)</a>
         ) : (
@@ -28,8 +27,10 @@ export default function SiteFooter({ lang = 'de' }: { lang?: Lang }) {
         {' '}·{' '}
         <a href={en ? '/en/contact' : '/kontakt'}>{en ? 'Contact' : 'Kontakt'}</a>
       </p>
-      <p className="footerSeal">
+      <div className="footerSeals">
+        <ImpressumWidget lang={lang} />
         <a
+          className="footerBadge"
           href="https://www.dsgvo-checken.de/"
           title={en ? 'GDPR-checked by dsgvo-checken.de' : 'DSGVO-geprüft von dsgvo-checken.de'}
         >
@@ -42,7 +43,7 @@ export default function SiteFooter({ lang = 'de' }: { lang?: Lang }) {
             loading="lazy"
           />
         </a>
-      </p>
+      </div>
     </footer>
   );
 }
