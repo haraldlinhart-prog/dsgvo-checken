@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import CheckForm from '../CheckForm';
-import ImpressumWidget from '../ImpressumWidget';
+import SiteFooter from '../SiteFooter';
 import SiteHeader from '../SiteHeader';
 import { alternates } from '../i18n';
 
 export const metadata: Metadata = {
-  alternates: alternates('/', '/en'),
+  alternates: alternates('/', '/en', '/'),
 };
 
 export default function Home() {
@@ -24,9 +24,9 @@ export default function Home() {
             <CheckForm />
           </div>
         </section>
-      {/* <!-- IMPRESSUM:START --> */}
-{/* <!-- IMPRESSUM:END --> */}
-</main>
+        {/* <!-- IMPRESSUM:START --> */}
+        {/* <!-- IMPRESSUM:END --> */}
+      </main>
 
       <div className="wrap">
         <section className="cta">
@@ -35,27 +35,12 @@ export default function Home() {
             Wir sind echte Webmaster — Server, Domains, Datenbanken, Formulare, Automatisierung.
             Beschreiben Sie Ihr Problem und nennen Sie Ihren Preis.
           </p>
-          <a className="ctaBtn" href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">
+          <a className="ctaBtn" href="https://www.webmaster.plus" target="_blank" rel="noopener noreferrer">
             Zu webmaster.plus →
           </a>
         </section>
 
-        <footer className="footer">
-          <p>
-            Ein Tool von{' '}
-            <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">webmaster.plus</a>
-            {' '}· Teil des{' '}
-            <a href="https://www.pan21.info" target="_blank" rel="noopener noreferrer">PAN21-Netzwerks</a>
-            {' '}·{' '}
-            <ImpressumWidget />
-            {' '}·{' '}
-            <a href="/datenschutz">Datenschutz</a>
-            {' '}·{' '}
-            <a href="/kontakt">Kontakt</a>
-            {' '}·{' '}
-            <a href="/blog">Blog</a>
-          </p>
-        </footer>
+        <SiteFooter />
       </div>
     </>
   );

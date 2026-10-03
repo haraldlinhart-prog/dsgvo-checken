@@ -1,18 +1,20 @@
 import type { Metadata } from 'next';
 import ContactForm from '../../../ContactForm';
+import SiteFooter from '../../../SiteFooter';
 import SiteHeader from '../../../SiteHeader';
 import { alternates } from '../../../i18n';
 
 export const metadata: Metadata = {
   title: 'Contact | dsgvo-checken.de',
   description: 'Questions about GDPR compliance? Get in touch — we are happy to help.',
-  alternates: alternates('/kontakt', '/en/contact'),
+  alternates: alternates('/kontakt', '/en/contact', '/en/contact'),
   openGraph: {
     title: 'Contact | dsgvo-checken.de',
     description: 'Questions about GDPR compliance? Get in touch — we are happy to help.',
     url: 'https://www.dsgvo-checken.de/en/contact',
     siteName: 'dsgvo-checken.de',
     locale: 'en_US',
+    alternateLocale: ['de_DE'],
     type: 'website',
   },
 };
@@ -39,20 +41,7 @@ export default function ContactPage() {
       </main>
 
       <div className="wrap">
-        <footer className="footer">
-          <p>
-            A tool by{' '}
-            <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">webmaster.plus</a>
-            {' '}· Part of the{' '}
-            <a href="https://www.pan21.info" target="_blank" rel="noopener noreferrer">PAN21 network</a>
-            {' '}·{' '}
-            <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">Legal notice (German)</a>
-            {' '}·{' '}
-            <a href="/datenschutz" hrefLang="de">Privacy policy (German)</a>
-            {' '}·{' '}
-            <a href="/en">Start the GDPR check</a>
-          </p>
-        </footer>
+        <SiteFooter lang="en" />
       </div>
     </>
   );

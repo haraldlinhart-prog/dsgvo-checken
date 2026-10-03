@@ -44,7 +44,7 @@ const T = {
     cookieNone: 'Kein Cookie-Hinweis gefunden. Falls Cookies eingesetzt werden, ist ein Banner erforderlich.',
     fontsLabel: 'Google Fonts',
     fontsBad:
-      'Externe Google Fonts erkannt. Das überträgt die IP-Adresse der Besucher an Google — nach DSGVO problematisch (EuGH-Urteil).',
+      'Externe Google Fonts erkannt. Das überträgt die IP-Adresse der Besucher an Google — nach DSGVO problematisch (Urteil des LG München I von 2022).',
     fontsOk: 'Keine externen Google Fonts gefunden.',
     trackLabel: 'Tracking / Analytics',
     trackNone: 'Kein Google Analytics oder Meta Pixel erkannt.',
@@ -84,7 +84,7 @@ const T = {
     cookieNone: 'No cookie notice found. If your site uses cookies, you need a consent banner.',
     fontsLabel: 'Google Fonts',
     fontsBad:
-      "External Google Fonts detected. This sends your visitors' IP addresses to Google, which is problematic under the GDPR (as German courts have ruled).",
+      "External Google Fonts detected. This sends your visitors' IP addresses to Google, which is problematic under the GDPR (as a German court ruled in 2022).",
     fontsOk: 'No external Google Fonts found.',
     trackLabel: 'Tracking / analytics',
     trackNone: 'No Google Analytics or Meta Pixel detected.',
@@ -138,16 +138,6 @@ export async function POST(req: NextRequest) {
   const domain = parsedUrl.hostname.replace(/^www\./, '');
   const checks: CheckResult[] = [];
 
-  // 1. SSL
-  const isHttps = parsedUrl.protocol === 'https:';
-  checks.push({
-    id: 'ssl',
-    label: t.sslLabel,
-    status: isHttps ? 'green' : 'red',
-    message: isHttps ? t.sslOk : t.sslBad,
-    fix: isHttps ? null : { label: t.sslFix, url: 'https://pagespeed-plus.de' },
-  });
-
   // Fetch the page
   let html = '';
   let fetchError = false;
@@ -156,7 +146,7 @@ export async function POST(req: NextRequest) {
     const resp = await fetch(url, {
       redirect: 'follow',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; DSGVO-Checken/1.0; +https://dsgvo-checken.de)',
+        'User-Agent': 'Mozilla/5.0 (compatible; DSGVO-Checken/1.0; +https://www.dsgvo-checken.de)',
         Accept: 'text/html',
         'Accept-Language': 'de-DE,de;q=0.9',
       },
@@ -169,15 +159,31 @@ export async function POST(req: NextRequest) {
   }
 
   if (fetchError) {
+    // Nothing could be loaded, so HTTPS cannot be confirmed either — report only reachability.
     checks.push({
       id: 'erreichbar',
       label: t.reachLabel,
       status: 'red',
       message: t.reachBad,
-      fix: { label: t.reachFix, url: 'https://site-ok.de' },
+      fix: { label: t.reachFix, url: 'https://www.site-ok.de' },
     });
-    return NextResponse.json({ url: finalUrl, checks });
+    return NextResponse.json({ url: finalUrl, checks, badgeVerified: false });
   }
+
+  // 1. SSL — judged by the URL actually reached after redirects
+  let isHttps = parsedUrl.protocol === 'https:';
+  try {
+    isHttps = new URL(finalUrl).protocol === 'https:';
+  } catch {
+    // keep the protocol of the entered URL
+  }
+  checks.push({
+    id: 'ssl',
+    label: t.sslLabel,
+    status: isHttps ? 'green' : 'red',
+    message: isHttps ? t.sslOk : t.sslBad,
+    fix: isHttps ? null : { label: t.sslFix, url: 'https://www.webmaster.plus' },
+  });
 
   checks.push({
     id: 'erreichbar',
@@ -196,7 +202,7 @@ export async function POST(req: NextRequest) {
     lc.includes(`dsgvo-checken.de/badge/${domain}`) ||
     lc.includes(`dsgvo-checken.de/badge/www.${domain}`);
 
-  const siegelHtml = `<a href="https://dsgvo-checken.de" target="_blank" rel="noopener noreferrer" title="${t.sealTitle}">\n  <img src="https://dsgvo-checken.de/siegel.png" alt="${t.sealAlt}" width="120" height="120">\n</a>`;
+  const siegelHtml = `<a href="https://www.dsgvo-checken.de" target="_blank" rel="noopener noreferrer" title="${t.sealTitle}">\n  <img src="https://www.dsgvo-checken.de/siegel.png" alt="${t.sealAlt}" width="120" height="120">\n</a>`;
 
   if (!hasBadge) {
     // Register domain (unverified) so the dynamic badge SVG is served
@@ -204,7 +210,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       requiresBadge: true,
       domain,
-      badgeUrl: `https://dsgvo-checken.de/badge/${domain}.svg`,
+      badgeUrl: `https://www.dsgvo-checken.de/badge/${domain}.svg`,
       badgeHtml: siegelHtml,
     });
   }
@@ -220,7 +226,7 @@ export async function POST(req: NextRequest) {
     label: t.impLabel,
     status: hasImpressum ? 'green' : 'red',
     message: hasImpressum ? t.impOk : t.impBad,
-    fix: hasImpressum ? null : { label: t.impFix, url: 'https://impressum-free.de' },
+    fix: hasImpressum ? null : { label: t.impFix, url: 'https://www.impressum-free.de' },
   });
 
   // 3. Datenschutzerklärung
@@ -235,7 +241,7 @@ export async function POST(req: NextRequest) {
     label: t.privLabel,
     status: hasPrivacy ? 'green' : 'red',
     message: hasPrivacy ? t.privOk : t.privBad,
-    fix: hasPrivacy ? null : { label: t.helpFix, url: 'https://webmaster.plus' },
+    fix: hasPrivacy ? null : { label: t.helpFix, url: 'https://www.webmaster.plus' },
   });
 
   // 4. Cookie-Banner
@@ -274,7 +280,7 @@ export async function POST(req: NextRequest) {
     label: t.cookieLabel,
     status: cookieStatus,
     message: cookieMessage,
-    fix: cookieStatus === 'green' ? null : { label: t.helpFix, url: 'https://webmaster.plus' },
+    fix: cookieStatus === 'green' ? null : { label: t.helpFix, url: 'https://www.webmaster.plus' },
   });
 
   // 5. Google Fonts (external)
@@ -285,7 +291,7 @@ export async function POST(req: NextRequest) {
     label: t.fontsLabel,
     status: hasExternalGoogleFonts ? 'red' : 'green',
     message: hasExternalGoogleFonts ? t.fontsBad : t.fontsOk,
-    fix: hasExternalGoogleFonts ? { label: t.helpFix, url: 'https://webmaster.plus' } : null,
+    fix: hasExternalGoogleFonts ? { label: t.helpFix, url: 'https://www.webmaster.plus' } : null,
   });
 
   // 6. Tracking / Analytics
@@ -323,7 +329,7 @@ export async function POST(req: NextRequest) {
     label: t.trackLabel,
     status: trackStatus,
     message: trackMessage,
-    fix: trackStatus === 'green' ? null : { label: t.helpFix, url: 'https://webmaster.plus' },
+    fix: trackStatus === 'green' ? null : { label: t.helpFix, url: 'https://www.webmaster.plus' },
   });
 
   // 7. Defekte Links (cross-sell)
@@ -332,11 +338,11 @@ export async function POST(req: NextRequest) {
     label: t.linksLabel,
     status: 'yellow',
     message: t.linksMsg,
-    fix: { label: t.linksFix, url: 'https://kaputte-links.de' },
+    fix: { label: t.linksFix, url: 'https://www.kaputte-links.de' },
   });
 
   // Save to Supabase
   await supabaseUpsert(domain, true, checks);
 
-  return NextResponse.json({ url: finalUrl, checks });
+  return NextResponse.json({ url: finalUrl, checks, badgeVerified: true });
 }

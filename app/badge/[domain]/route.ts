@@ -11,11 +11,11 @@ function formatDate(iso: string): string {
 }
 
 function makeSvg(domain: string, lastChecked: string | null, verified: boolean): string {
-  const dateStr = lastChecked ? formatDate(lastChecked) : 'nicht geprüft';
+  const dateLine = verified && lastChecked ? `geprüft: ${formatDate(lastChecked)}` : 'noch nicht geprüft';
   const color = verified ? '#22c55e' : '#94a3b8';
   const bgColor = verified ? '#14532d' : '#1e293b';
   const label = verified ? 'DSGVO-geprüft' : 'DSGVO-Check';
-  const domainShort = domain.length > 22 ? domain.slice(0, 20) + '…' : domain;
+  const domainShort = escXml(domain.length > 22 ? domain.slice(0, 20) + '…' : domain);
   const totalWidth = 220;
   const shieldX = 10;
   const textX = 42;
@@ -37,7 +37,7 @@ function makeSvg(domain: string, lastChecked: string | null, verified: boolean):
   <!-- Domain -->
   <text x="${textX}" y="34" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600" fill="#e2e8f0">${domainShort}</text>
   <!-- Date -->
-  <text x="${textX}" y="47" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" fill="#94a3b8">geprüft: ${dateStr}</text>
+  <text x="${textX}" y="47" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" fill="#94a3b8">${dateLine}</text>
 </svg>`;
 }
 
@@ -82,4 +82,12 @@ export async function GET(
       'Access-Control-Allow-Origin': '*',
     },
   });
+}
+
+function escXml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }

@@ -1,10 +1,24 @@
-import ImpressumWidget from '../../ImpressumWidget';
+import SiteFooter from '../../SiteFooter';
 import SiteHeader from '../../SiteHeader';
+import { SITE_URL } from '../../i18n';
 import type { Metadata } from 'next';
 
+const TITLE = 'Datenschutzerklärung | dsgvo-checken.de';
+const DESCRIPTION =
+  'Datenschutzerklärung von dsgvo-checken.de — Informationen zur Verarbeitung personenbezogener Daten.';
+
 export const metadata: Metadata = {
-  title: 'Datenschutzerklärung | dsgvo-checken.de',
-  description: 'Datenschutzerklärung von dsgvo-checken.de — Informationen zur Verarbeitung personenbezogener Daten.',
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: `${SITE_URL}/datenschutz` },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: `${SITE_URL}/datenschutz`,
+    siteName: 'dsgvo-checken.de',
+    locale: 'de_DE',
+    type: 'website',
+  },
 };
 
 export default function Datenschutz() {
@@ -13,7 +27,7 @@ export default function Datenschutz() {
       <SiteHeader lang="de" deHref="/datenschutz" enHref="/en" />
 
       <main>
-        <div className="wrap" style={{ maxWidth: '720px', padding: '48px 24px' }}>
+        <div className="wrap legal">
           <h1>Datenschutzerklärung</h1>
 
           <h2>1. Verantwortlicher</h2>
@@ -35,8 +49,8 @@ export default function Datenschutz() {
 
           <h2>3. Server-Logfiles</h2>
           <p>
-            Der Hosting-Anbieter dieser Website (Vercel Inc., 340 Pine Street, Suite 701,
-            San Francisco, CA 94104, USA) erhebt und speichert automatisch Informationen in
+            Der Hosting-Anbieter dieser Website (Vercel Inc., 440 N Barranca Avenue #4133,
+            Covina, CA 91723, USA) erhebt und speichert automatisch Informationen in
             sogenannten Server-Logfiles, die Ihr Browser automatisch übermittelt. Dies sind:
           </p>
           <ul>
@@ -52,7 +66,7 @@ export default function Datenschutz() {
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren
             und stabilen Betrieb der Website). Die Daten werden nach spätestens 30 Tagen gelöscht.
             Vercel verarbeitet Daten gemäß seiner{' '}
-            <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">
+            <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">
               Datenschutzerklärung
             </a>.
           </p>
@@ -60,8 +74,11 @@ export default function Datenschutz() {
           <h2>4. Website-Check (Kerndienst)</h2>
           <p>
             Wenn Sie eine URL in den DSGVO-Checker eingeben, wird diese URL an unsere
-            Server-API übermittelt und dort analysiert. Die eingegebene URL wird dabei
-            nicht dauerhaft gespeichert und nicht mit Ihrer IP-Adresse verknüpft.
+            Server-API übermittelt und dort analysiert. Die vollständige URL wird dabei
+            nicht dauerhaft gespeichert. Gespeichert werden nur der Domainname der geprüften
+            Website, ob das Siegel gefunden wurde, das Prüfergebnis und der Zeitpunkt der
+            Prüfung — damit das dynamische Siegel das Prüfdatum anzeigen kann. Diese Daten
+            werden nicht mit Ihrer IP-Adresse verknüpft.
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung / vorvertragliche
             Maßnahmen) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der
             Erbringung des kostenlosen Dienstes).
@@ -110,31 +127,18 @@ export default function Datenschutz() {
 
           <h2>9. Aktualität dieser Datenschutzerklärung</h2>
           <p>
-            Diese Datenschutzerklärung ist aktuell gültig und hat den Stand September 2026.
+            Diese Datenschutzerklärung ist aktuell gültig und hat den Stand Oktober 2026.
             Durch die Weiterentwicklung unserer Website können Änderungen notwendig werden.
           </p>
 
-          <p style={{ marginTop: '32px' }}>
-            <a href="/">← Zurück zum DSGVO-Checker</a>
+          <p className="legalBack">
+            <a href="/">← Zurück zum DSGVO-Check</a>
           </p>
         </div>
       </main>
 
       <div className="wrap">
-        <footer className="footer">
-          <p>
-            Ein Tool von{' '}
-            <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">webmaster.plus</a>
-            {' '}· Teil des{' '}
-            <a href="https://www.pan21.info" target="_blank" rel="noopener noreferrer">PAN21-Netzwerks</a>
-            {' '}·{' '}
-            <ImpressumWidget />
-            {' '}·{' '}
-            <a href="/datenschutz">Datenschutz</a>
-            {' '}·{' '}
-            <a href="/kontakt">Kontakt</a>
-          </p>
-        </footer>
+        <SiteFooter />
       </div>
     </>
   );

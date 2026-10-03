@@ -15,18 +15,19 @@ interface ApiResponse {
   checks: CheckResult[];
   error?: string;
   requiresBadge?: boolean;
+  badgeVerified?: boolean;
   domain?: string;
   badgeUrl?: string;
   badgeHtml?: string;
 }
 
 const TOOLS = [
-  { emoji: '📊', name: 'PAN21counter', url: 'https://pan21counter.de' },
-  { emoji: '🟢', name: 'site-ok.de', url: 'https://site-ok.de' },
-  { emoji: '⚡', name: 'PageSpeed-Plus', url: 'https://pagespeed-plus.de' },
-  { emoji: '📄', name: 'Impressum-Free', url: 'https://impressum-free.de' },
-  { emoji: '🔗', name: 'kaputte-links.de', url: 'https://kaputte-links.de' },
-  { emoji: '🛡️', name: 'Spam-Abwehr', url: 'https://spam-abwehr.de' },
+  { emoji: '📊', name: 'PAN21counter', url: 'https://www.pan21counter.de' },
+  { emoji: '🟢', name: 'site-ok.de', url: 'https://www.site-ok.de' },
+  { emoji: '⚡', name: 'PageSpeed-Plus', url: 'https://www.pagespeed-plus.de' },
+  { emoji: '📄', name: 'Impressum-Free', url: 'https://www.impressum-free.de' },
+  { emoji: '🔗', name: 'kaputte-links.de', url: 'https://www.kaputte-links.de' },
+  { emoji: '🛡️', name: 'Spam-Abwehr', url: 'https://www.spam-abwehr.de' },
   { emoji: '🔍', name: 'suchmaschinen.pro', url: 'https://www.suchmaschinen.pro' },
   { emoji: '⚖️', name: 'abmahnschutz.pro', url: 'https://www.abmahnschutz.pro' },
 ];
@@ -176,8 +177,12 @@ export default function CheckForm({ lang = 'de' }: { lang?: Lang }) {
             <a href={result.url} target="_blank" rel="noopener noreferrer">
               {result.url}
             </a>
-            {' '}·{' '}
-            <span className="badgeVerifiedChip">{t.verifiedChip}</span>
+            {result.badgeVerified && (
+              <>
+                {' '}·{' '}
+                <span className="badgeVerifiedChip">{t.verifiedChip}</span>
+              </>
+            )}
           </p>
 
           {counts && (

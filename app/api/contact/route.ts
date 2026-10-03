@@ -25,8 +25,6 @@ function checkRateLimit(ip: string): boolean {
 function isSpam(body: Record<string, string>): boolean {
   // Honeypot field must be empty
   if (body.website && body.website.trim() !== '') return true;
-  // Message too short
-  if ((body.message ?? '').trim().length < 20) return true;
   // URL spam patterns
   const urlCount = (body.message.match(/https?:\/\//g) ?? []).length;
   if (urlCount > 2) return true;
@@ -40,6 +38,7 @@ const MSG = {
     badRequest: 'Ungültige Anfrage',
     required: 'Bitte alle Pflichtfelder ausfüllen.',
     badEmail: 'Ungültige E-Mail-Adresse.',
+    tooShort: 'Bitte schreiben Sie eine etwas ausführlichere Nachricht (mindestens 20 Zeichen).',
     sendFailed: 'E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.',
   },
   en: {
@@ -47,6 +46,7 @@ const MSG = {
     badRequest: 'Invalid request',
     required: 'Please fill in all required fields.',
     badEmail: 'Invalid email address.',
+    tooShort: 'Please write a slightly longer message (at least 20 characters).',
     sendFailed: 'Your message could not be sent. Please try again later.',
   },
 };
@@ -79,6 +79,11 @@ export async function POST(req: NextRequest) {
   // Email format check
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: m.badEmail }, { status: 400 });
+  }
+
+  // Too short: tell the visitor instead of silently dropping the message
+  if (message.trim().length < 20) {
+    return NextResponse.json({ error: m.tooShort }, { status: 400 });
   }
 
   // Spam check (honeypot + heuristics)

@@ -2,9 +2,10 @@ export type Lang = 'de' | 'en';
 
 export const SITE_URL = 'https://www.dsgvo-checken.de';
 
-/** hreflang alternates for a page that exists in both languages. */
-export function alternates(dePath: string, enPath: string) {
+/** Canonical URL plus hreflang alternates for a page that exists in both languages. */
+export function alternates(dePath: string, enPath: string, canonicalPath: string) {
   return {
+    canonical: `${SITE_URL}${canonicalPath}`,
     languages: {
       de: `${SITE_URL}${dePath}`,
       en: `${SITE_URL}${enPath}`,
@@ -22,11 +23,11 @@ export const checkFormText = {
     checkNow: 'Jetzt prüfen',
     unknownError: 'Unbekannter Fehler',
     connectionError: 'Verbindungsfehler. Bitte versuchen Sie es erneut.',
-    sealAlt: 'DSGVO-geprüft Siegel',
-    sealPreviewAlt: 'DSGVO-geprüft Siegel Vorschau',
+    sealAlt: 'Siegel „DSGVO-geprüft“',
+    sealPreviewAlt: 'Vorschau des Siegels „DSGVO-geprüft“',
     gateTitle: 'Erst Siegel einbinden — dann kostenlos prüfen',
     gateDesc:
-      'Das Siegel zeigt Ihren Besuchern aktive DSGVO-Compliance — und bietet als sichtbares Prüfzeichen Schutz vor Abmahnungen.',
+      'Das Siegel zeigt Ihren Besuchern, dass Sie DSGVO-Compliance ernst nehmen — und kann als sichtbares Prüfzeichen helfen, kostspieligen Abmahnungen vorzubeugen.',
     step1Strong: 'Kopieren Sie diesen HTML-Code',
     step1Rest: ' und fügen Sie das Siegel in den Footer oder die Datenschutzseite Ihrer Website ein:',
     copied: '✓ Kopiert!',
@@ -34,17 +35,17 @@ export const checkFormText = {
     previewLabel: 'So sieht das Siegel auf Ihrer Website aus:',
     step2Strong: 'Publizieren Sie Ihre Website',
     step2Rest: ' mit dem Siegel.',
-    step3Strong: 'Klicken Sie auf “Siegel prüfen & Check starten”',
+    step3Strong: 'Klicken Sie auf „Siegel prüfen & Check starten“',
     step3Rest:
       ' oben — wir erkennen das Siegel automatisch und starten den vollständigen DSGVO-Check.',
     gateNote:
-      '💡 Das Siegel schützt Sie als sichtbares Prüfzeichen. So lange es eingebunden ist, können Sie jederzeit einen neuen Check starten und das Prüfdatum aktualisieren.',
+      '💡 Das Siegel wirkt als sichtbares Prüfzeichen. Solange es eingebunden ist, können Sie jederzeit einen neuen Check starten und das Prüfdatum aktualisieren.',
     resultFor: 'Ergebnis für:',
     verifiedChip: '🛡️ DSGVO-geprüft',
     summary: 'Zusammenfassung',
     ok: (n: number) => `${n} OK`,
-    notice: (n: number) => `${n} Hinweis`,
-    problem: (n: number) => `${n} Problem`,
+    notice: (n: number) => `${n} ${n === 1 ? 'Hinweis' : 'Hinweise'}`,
+    problem: (n: number) => `${n} ${n === 1 ? 'Problem' : 'Probleme'}`,
     toolsTitle: 'Weitere kostenlose Webmaster-Tools',
     toolsDesc: 'Teil des PAN21-Netzwerks — alle Tools von echten Webmastern für echte Webmaster.',
     tools: [
@@ -131,7 +132,7 @@ export const contactFormText = {
     messagePlaceholder: 'Wie können wir Ihnen helfen?',
     honeypot: 'Website (nicht ausfüllen)',
     privacyBefore: 'Ich habe die ',
-    privacyHref: 'https://webmaster.plus',
+    privacyHref: '/datenschutz',
     privacyLink: 'Datenschutzerklärung',
     privacyAfter: ' gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *',
     sending: 'Wird gesendet…',
