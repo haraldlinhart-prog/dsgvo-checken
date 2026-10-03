@@ -149,6 +149,7 @@ export async function POST(req: NextRequest) {
   try {
     const resp = await fetch(url, {
       redirect: 'follow',
+      cache: 'no-store',
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; DSGVO-Checken/1.0; +https://www.dsgvo-checken.de)',
         Accept: 'text/html',
