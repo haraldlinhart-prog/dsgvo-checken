@@ -609,3 +609,12 @@ img { max-width: 100%; height: auto; }
   border-radius: var(--radius);
 }
 .ghostBtn:hover { border-color: var(--accent); text-decoration: none; }
+
+/* Tool cards sit inside the centered hero — keep their text left-aligned */
+.toolsGrid { text-align: left; }
+
+@media (max-width: 520px) {
+  .badgeGateInner { padding: 24px 18px; }
+  .badgeCode { padding-right: 16px; }
+  .badgeCopyBtn { position: static; display: block; width: 100%; margin-top: 8px; padding: 10px 12px; font-size: .85rem; }
+}
