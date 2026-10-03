@@ -13,6 +13,90 @@ interface CheckResult {
   fix: { label: string; url: string } | null;
 }
 
+type Lang = 'de' | 'en';
+
+// All human-readable texts of the checker. German is the default.
+const T = {
+  de: {
+    urlMissing: 'URL fehlt',
+    urlInvalid: 'Ungültige URL',
+    sslLabel: 'SSL / HTTPS',
+    sslOk: 'Die Seite läuft über HTTPS — Verbindung ist verschlüsselt.',
+    sslBad: 'Die URL verwendet kein HTTPS. Daten werden unverschlüsselt übertragen.',
+    sslFix: 'SSL-Zertifikat einrichten',
+    reachLabel: 'Website erreichbar',
+    reachBad: 'Die Website konnte nicht geladen werden.',
+    reachFix: 'Verfügbarkeit prüfen',
+    reachOk: 'Die Website ist erreichbar und hat geantwortet.',
+    sealTitle: 'DSGVO-geprüft von dsgvo-checken.de',
+    sealAlt: 'DSGVO-geprüft',
+    impLabel: 'Impressum',
+    impOk: 'Ein Impressum-Link wurde auf der Seite gefunden.',
+    impBad: 'Kein Impressum-Link gefunden. In Deutschland gesetzlich vorgeschrieben.',
+    impFix: 'Impressum kostenlos erstellen',
+    privLabel: 'Datenschutzerklärung',
+    privOk: 'Ein Link zur Datenschutzerklärung wurde gefunden.',
+    privBad: 'Keine Datenschutzerklärung gefunden. Nach DSGVO Art. 13/14 verpflichtend.',
+    helpFix: 'Webmaster-Hilfe anfragen',
+    cookieLabel: 'Cookie-Banner / Consent',
+    cookieOk: 'Ein Cookie-Banner / Consent-Tool wurde erkannt.',
+    cookiePartial: 'Cookies werden erwähnt, aber kein vollständiges Consent-Tool erkannt. Bitte prüfen.',
+    cookieNone: 'Kein Cookie-Hinweis gefunden. Falls Cookies eingesetzt werden, ist ein Banner erforderlich.',
+    fontsLabel: 'Google Fonts',
+    fontsBad:
+      'Externe Google Fonts erkannt. Das überträgt die IP-Adresse der Besucher an Google — nach DSGVO problematisch (EuGH-Urteil).',
+    fontsOk: 'Keine externen Google Fonts gefunden.',
+    trackLabel: 'Tracking / Analytics',
+    trackNone: 'Kein Google Analytics oder Meta Pixel erkannt.',
+    trackConsent:
+      'Tracking-Scripts erkannt, aber es gibt ein Consent-Tool. Bitte sicherstellen, dass das Tracking erst nach Einwilligung aktiviert wird.',
+    trackBad: 'Google Analytics / Tracking ohne erkennbares Consent-Tool gefunden. Das ist ein DSGVO-Verstoß.',
+    linksLabel: 'Defekte Links',
+    linksMsg: 'Defekte Links können nur durch einen vollständigen Crawl erkannt werden.',
+    linksFix: 'Defekte Links prüfen',
+  },
+  en: {
+    urlMissing: 'Please enter a URL.',
+    urlInvalid: 'Invalid URL',
+    sslLabel: 'SSL / HTTPS',
+    sslOk: 'The site is served over HTTPS — the connection is encrypted.',
+    sslBad: 'The URL does not use HTTPS. Data is transmitted unencrypted.',
+    sslFix: 'Set up an SSL certificate',
+    reachLabel: 'Website reachable',
+    reachBad: 'The website could not be loaded.',
+    reachFix: 'Check availability',
+    reachOk: 'The website is reachable and responded.',
+    sealTitle: 'GDPR-checked by dsgvo-checken.de',
+    sealAlt: 'GDPR-checked',
+    impLabel: 'Legal notice (Impressum)',
+    impOk: 'A link to a legal notice (Impressum) was found on the page.',
+    impBad:
+      'No legal notice (Impressum) link found. German law requires one for most websites aimed at German visitors.',
+    impFix: 'Create a free Impressum',
+    privLabel: 'Privacy policy',
+    privOk: 'A link to a privacy policy was found.',
+    privBad: 'No privacy policy found. It is mandatory under Articles 13 and 14 GDPR.',
+    helpFix: 'Get help from a webmaster',
+    cookieLabel: 'Cookie banner / consent',
+    cookieOk: 'A cookie banner / consent management tool was detected.',
+    cookiePartial:
+      'Cookies are mentioned, but no complete consent tool was detected. Please double-check.',
+    cookieNone: 'No cookie notice found. If your site uses cookies, you need a consent banner.',
+    fontsLabel: 'Google Fonts',
+    fontsBad:
+      "External Google Fonts detected. This sends your visitors' IP addresses to Google, which is problematic under the GDPR (as German courts have ruled).",
+    fontsOk: 'No external Google Fonts found.',
+    trackLabel: 'Tracking / analytics',
+    trackNone: 'No Google Analytics or Meta Pixel detected.',
+    trackConsent:
+      'Tracking scripts detected, but there is a consent tool. Make sure tracking only starts after visitors have given their consent.',
+    trackBad: 'Google Analytics / tracking found without any recognizable consent tool. This violates the GDPR.',
+    linksLabel: 'Broken links',
+    linksMsg: 'Broken links can only be detected with a full crawl of your site.',
+    linksFix: 'Check for broken links',
+  },
+};
+
 async function supabaseUpsert(domain: string, badgeVerified: boolean, checks: CheckResult[]) {
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/dsgvo_checks`, {
@@ -37,14 +121,17 @@ async function supabaseUpsert(domain: string, badgeVerified: boolean, checks: Ch
 
 export async function POST(req: NextRequest) {
   let url: string;
+  let t = T.de;
   try {
     const body = await req.json();
+    const lang: Lang = body.lang === 'en' ? 'en' : 'de';
+    t = T[lang];
     url = (body.url ?? '').trim();
-    if (!url) return NextResponse.json({ error: 'URL fehlt' }, { status: 400 });
+    if (!url) return NextResponse.json({ error: t.urlMissing }, { status: 400 });
     if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
     new URL(url); // validate
   } catch {
-    return NextResponse.json({ error: 'Ungültige URL' }, { status: 400 });
+    return NextResponse.json({ error: t.urlInvalid }, { status: 400 });
   }
 
   const parsedUrl = new URL(url);
@@ -55,12 +142,10 @@ export async function POST(req: NextRequest) {
   const isHttps = parsedUrl.protocol === 'https:';
   checks.push({
     id: 'ssl',
-    label: 'SSL / HTTPS',
+    label: t.sslLabel,
     status: isHttps ? 'green' : 'red',
-    message: isHttps
-      ? 'Die Seite läuft über HTTPS — Verbindung ist verschlüsselt.'
-      : 'Die URL verwendet kein HTTPS. Daten werden unverschlüsselt übertragen.',
-    fix: isHttps ? null : { label: 'SSL-Zertifikat einrichten', url: 'https://pagespeed-plus.de' },
+    message: isHttps ? t.sslOk : t.sslBad,
+    fix: isHttps ? null : { label: t.sslFix, url: 'https://pagespeed-plus.de' },
   });
 
   // Fetch the page
@@ -86,19 +171,19 @@ export async function POST(req: NextRequest) {
   if (fetchError) {
     checks.push({
       id: 'erreichbar',
-      label: 'Website erreichbar',
+      label: t.reachLabel,
       status: 'red',
-      message: 'Die Website konnte nicht geladen werden.',
-      fix: { label: 'Verfügbarkeit prüfen', url: 'https://site-ok.de' },
+      message: t.reachBad,
+      fix: { label: t.reachFix, url: 'https://site-ok.de' },
     });
     return NextResponse.json({ url: finalUrl, checks });
   }
 
   checks.push({
     id: 'erreichbar',
-    label: 'Website erreichbar',
+    label: t.reachLabel,
     status: 'green',
-    message: 'Die Website ist erreichbar und hat geantwortet.',
+    message: t.reachOk,
     fix: null,
   });
 
@@ -111,7 +196,7 @@ export async function POST(req: NextRequest) {
     lc.includes(`dsgvo-checken.de/badge/${domain}`) ||
     lc.includes(`dsgvo-checken.de/badge/www.${domain}`);
 
-  const siegelHtml = `<a href="https://dsgvo-checken.de" target="_blank" rel="noopener noreferrer" title="DSGVO-geprüft von dsgvo-checken.de">\n  <img src="https://dsgvo-checken.de/siegel.png" alt="DSGVO-geprüft" width="120" height="120">\n</a>`;
+  const siegelHtml = `<a href="https://dsgvo-checken.de" target="_blank" rel="noopener noreferrer" title="${t.sealTitle}">\n  <img src="https://dsgvo-checken.de/siegel.png" alt="${t.sealAlt}" width="120" height="120">\n</a>`;
 
   if (!hasBadge) {
     // Register domain (unverified) so the dynamic badge SVG is served
@@ -132,12 +217,10 @@ export async function POST(req: NextRequest) {
     lc.includes('legal-notice');
   checks.push({
     id: 'impressum',
-    label: 'Impressum',
+    label: t.impLabel,
     status: hasImpressum ? 'green' : 'red',
-    message: hasImpressum
-      ? 'Ein Impressum-Link wurde auf der Seite gefunden.'
-      : 'Kein Impressum-Link gefunden. In Deutschland gesetzlich vorgeschrieben.',
-    fix: hasImpressum ? null : { label: 'Impressum kostenlos erstellen', url: 'https://impressum-free.de' },
+    message: hasImpressum ? t.impOk : t.impBad,
+    fix: hasImpressum ? null : { label: t.impFix, url: 'https://impressum-free.de' },
   });
 
   // 3. Datenschutzerklärung
@@ -149,12 +232,10 @@ export async function POST(req: NextRequest) {
     lc.includes('privacy-policy');
   checks.push({
     id: 'datenschutz',
-    label: 'Datenschutzerklärung',
+    label: t.privLabel,
     status: hasPrivacy ? 'green' : 'red',
-    message: hasPrivacy
-      ? 'Ein Link zur Datenschutzerklärung wurde gefunden.'
-      : 'Keine Datenschutzerklärung gefunden. Nach DSGVO Art. 13/14 verpflichtend.',
-    fix: hasPrivacy ? null : { label: 'Webmaster-Hilfe anfragen', url: 'https://webmaster.plus' },
+    message: hasPrivacy ? t.privOk : t.privBad,
+    fix: hasPrivacy ? null : { label: t.helpFix, url: 'https://webmaster.plus' },
   });
 
   // 4. Cookie-Banner
@@ -180,20 +261,20 @@ export async function POST(req: NextRequest) {
   let cookieMessage: string;
   if (hasCookieBanner) {
     cookieStatus = 'green';
-    cookieMessage = 'Ein Cookie-Banner / Consent-Tool wurde erkannt.';
+    cookieMessage = t.cookieOk;
   } else if (hasCookieAtAll) {
     cookieStatus = 'yellow';
-    cookieMessage = 'Cookies werden erwähnt, aber kein vollständiges Consent-Tool erkannt. Bitte prüfen.';
+    cookieMessage = t.cookiePartial;
   } else {
     cookieStatus = 'yellow';
-    cookieMessage = 'Kein Cookie-Hinweis gefunden. Falls Cookies eingesetzt werden, ist ein Banner erforderlich.';
+    cookieMessage = t.cookieNone;
   }
   checks.push({
     id: 'cookie',
-    label: 'Cookie-Banner / Consent',
+    label: t.cookieLabel,
     status: cookieStatus,
     message: cookieMessage,
-    fix: cookieStatus === 'green' ? null : { label: 'Webmaster-Hilfe anfragen', url: 'https://webmaster.plus' },
+    fix: cookieStatus === 'green' ? null : { label: t.helpFix, url: 'https://webmaster.plus' },
   });
 
   // 5. Google Fonts (external)
@@ -201,12 +282,10 @@ export async function POST(req: NextRequest) {
     lc.includes('fonts.googleapis.com') || lc.includes('fonts.gstatic.com');
   checks.push({
     id: 'googlefonts',
-    label: 'Google Fonts',
+    label: t.fontsLabel,
     status: hasExternalGoogleFonts ? 'red' : 'green',
-    message: hasExternalGoogleFonts
-      ? 'Externe Google Fonts erkannt. Das überträgt die IP-Adresse der Besucher an Google — nach DSGVO problematisch (EuGH-Urteil).'
-      : 'Keine externen Google Fonts gefunden.',
-    fix: hasExternalGoogleFonts ? { label: 'Webmaster-Hilfe anfragen', url: 'https://webmaster.plus' } : null,
+    message: hasExternalGoogleFonts ? t.fontsBad : t.fontsOk,
+    fix: hasExternalGoogleFonts ? { label: t.helpFix, url: 'https://webmaster.plus' } : null,
   });
 
   // 6. Tracking / Analytics
@@ -231,31 +310,29 @@ export async function POST(req: NextRequest) {
   let trackMessage: string;
   if (!hasGaScript) {
     trackStatus = 'green';
-    trackMessage = 'Kein Google Analytics oder Meta Pixel erkannt.';
+    trackMessage = t.trackNone;
   } else if (hasConsentTool) {
     trackStatus = 'yellow';
-    trackMessage =
-      'Tracking-Scripts erkannt, aber es gibt ein Consent-Tool. Bitte sicherstellen, dass das Tracking erst nach Einwilligung aktiviert wird.';
+    trackMessage = t.trackConsent;
   } else {
     trackStatus = 'red';
-    trackMessage =
-      'Google Analytics / Tracking ohne erkennbares Consent-Tool gefunden. Das ist ein DSGVO-Verstoß.';
+    trackMessage = t.trackBad;
   }
   checks.push({
     id: 'tracking',
-    label: 'Tracking / Analytics',
+    label: t.trackLabel,
     status: trackStatus,
     message: trackMessage,
-    fix: trackStatus === 'green' ? null : { label: 'Webmaster-Hilfe anfragen', url: 'https://webmaster.plus' },
+    fix: trackStatus === 'green' ? null : { label: t.helpFix, url: 'https://webmaster.plus' },
   });
 
   // 7. Defekte Links (cross-sell)
   checks.push({
     id: 'links',
-    label: 'Defekte Links',
+    label: t.linksLabel,
     status: 'yellow',
-    message: 'Defekte Links können nur durch einen vollständigen Crawl erkannt werden.',
-    fix: { label: 'Defekte Links prüfen', url: 'https://kaputte-links.de' },
+    message: t.linksMsg,
+    fix: { label: t.linksFix, url: 'https://kaputte-links.de' },
   });
 
   // Save to Supabase

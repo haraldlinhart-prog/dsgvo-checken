@@ -1,17 +1,11 @@
 'use client';
 import { useState } from 'react';
+import { contactFormText, type Lang } from './i18n';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
-const SUBJECTS = [
-  'Frage zum DSGVO-Check',
-  'Siegel einbinden — Hilfe benötigt',
-  'Professionelle DSGVO-Beratung',
-  'Technisches Problem',
-  'Sonstiges',
-];
-
-export default function ContactForm() {
+export default function ContactForm({ lang = 'de' }: { lang?: Lang }) {
+  const t = contactFormText[lang];
   const [state, setState] = useState<FormState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [form, setForm] = useState({
@@ -30,13 +24,13 @@ export default function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.privacy) {
-      setErrorMsg('Bitte bestätigen Sie die Datenschutzerklärung.');
+      setErrorMsg(t.privacyRequired);
       return;
     }
     setState('loading');
     setErrorMsg('');
     try {
-      const resp = await fetch('/api/contact', {
+      const resp = await fetch(lang === 'en' ? '/api/contact?lang=en' : '/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -49,13 +43,13 @@ export default function ContactForm() {
       });
       const data = await resp.json();
       if (!resp.ok || data.error) {
-        setErrorMsg(data.error ?? 'Unbekannter Fehler.');
+        setErrorMsg(data.error ?? t.unknownError);
         setState('error');
       } else {
         setState('success');
       }
     } catch {
-      setErrorMsg('Verbindungsfehler. Bitte versuchen Sie es erneut.');
+      setErrorMsg(t.connectionError);
       setState('error');
     }
   }
@@ -64,10 +58,10 @@ export default function ContactForm() {
     return (
       <div className="contactSuccess">
         <div className="contactSuccessIcon">✓</div>
-        <h2>Nachricht gesendet!</h2>
-        <p>Vielen Dank, {form.name}. Wir melden uns in der Regel innerhalb von 24 Stunden bei Ihnen.</p>
-        <a href="/" className="ctaBtn" style={{ display: 'inline-block', marginTop: '20px' }}>
-          Zurück zum DSGVO-Check
+        <h2>{t.successTitle}</h2>
+        <p>{t.successText(form.name)}</p>
+        <a href={t.backHref} className="ctaBtn" style={{ display: 'inline-block', marginTop: '20px' }}>
+          {t.back}
         </a>
       </div>
     );
@@ -77,25 +71,25 @@ export default function ContactForm() {
     <form className="contactForm" onSubmit={handleSubmit} noValidate>
       <div className="contactGrid">
         <div className="contactField">
-          <label htmlFor="cf-name">Name *</label>
+          <label htmlFor="cf-name">{t.name}</label>
           <input
             id="cf-name"
             type="text"
             value={form.name}
             onChange={(e) => set('name', e.target.value)}
-            placeholder="Max Mustermann"
+            placeholder={t.namePlaceholder}
             required
             autoComplete="name"
           />
         </div>
         <div className="contactField">
-          <label htmlFor="cf-email">E-Mail *</label>
+          <label htmlFor="cf-email">{t.email}</label>
           <input
             id="cf-email"
             type="email"
             value={form.email}
             onChange={(e) => set('email', e.target.value)}
-            placeholder="max@example.de"
+            placeholder={t.emailPlaceholder}
             required
             autoComplete="email"
           />
@@ -103,26 +97,26 @@ export default function ContactForm() {
       </div>
 
       <div className="contactField">
-        <label htmlFor="cf-subject">Betreff</label>
+        <label htmlFor="cf-subject">{t.subject}</label>
         <select
           id="cf-subject"
           value={form.subject}
           onChange={(e) => set('subject', e.target.value)}
         >
-          <option value="">Bitte wählen…</option>
-          {SUBJECTS.map((s) => (
+          <option value="">{t.choose}</option>
+          {t.subjects.map((s) => (
             <option key={s} value={s}>{s}</option>
           ))}
         </select>
       </div>
 
       <div className="contactField">
-        <label htmlFor="cf-message">Nachricht *</label>
+        <label htmlFor="cf-message">{t.message}</label>
         <textarea
           id="cf-message"
           value={form.message}
           onChange={(e) => set('message', e.target.value)}
-          placeholder="Wie können wir Ihnen helfen?"
+          placeholder={t.messagePlaceholder}
           required
           rows={6}
         />
@@ -130,7 +124,7 @@ export default function ContactForm() {
 
       {/* Honeypot — hidden from real users via CSS */}
       <div className="contactHoneypot" aria-hidden="true">
-        <label htmlFor="cf-website">Website (nicht ausfüllen)</label>
+        <label htmlFor="cf-website">{t.honeypot}</label>
         <input
           id="cf-website"
           type="text"
@@ -150,11 +144,11 @@ export default function ContactForm() {
             required
           />
           <span>
-            Ich habe die{' '}
-            <a href="https://webmaster.plus" target="_blank" rel="noopener noreferrer">
-              Datenschutzerklärung
-            </a>{' '}
-            gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *
+            {t.privacyBefore}
+            <a href={t.privacyHref} target="_blank" rel="noopener noreferrer">
+              {t.privacyLink}
+            </a>
+            {t.privacyAfter}
           </span>
         </label>
       </div>
@@ -170,13 +164,13 @@ export default function ContactForm() {
         style={{ width: '100%', marginTop: '8px', padding: '14px' }}
       >
         {state === 'loading' ? (
-          <><span className="spinner" aria-hidden="true" />Wird gesendet…</>
+          <><span className="spinner" aria-hidden="true" />{t.sending}</>
         ) : (
-          'Nachricht senden →'
+          t.send
         )}
       </button>
 
-      <p className="contactNote">* Pflichtfelder. Wir geben Ihre Daten nicht an Dritte weiter.</p>
+      <p className="contactNote">{t.note}</p>
     </form>
   );
 }

@@ -33,12 +33,31 @@ function isSpam(body: Record<string, string>): boolean {
   return false;
 }
 
+// User-facing error messages (German default, English via ?lang=en)
+const MSG = {
+  de: {
+    rateLimit: 'Zu viele Anfragen. Bitte warten Sie eine Stunde.',
+    badRequest: 'Ungültige Anfrage',
+    required: 'Bitte alle Pflichtfelder ausfüllen.',
+    badEmail: 'Ungültige E-Mail-Adresse.',
+    sendFailed: 'E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.',
+  },
+  en: {
+    rateLimit: 'Too many requests. Please wait an hour and try again.',
+    badRequest: 'Invalid request',
+    required: 'Please fill in all required fields.',
+    badEmail: 'Invalid email address.',
+    sendFailed: 'Your message could not be sent. Please try again later.',
+  },
+};
+
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const m = req.nextUrl.searchParams.get('lang') === 'en' ? MSG.en : MSG.de;
 
   if (!checkRateLimit(ip)) {
     return NextResponse.json(
-      { error: 'Zu viele Anfragen. Bitte warten Sie eine Stunde.' },
+      { error: m.rateLimit },
       { status: 429 }
     );
   }
@@ -47,19 +66,19 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: 'Ungültige Anfrage' }, { status: 400 });
+    return NextResponse.json({ error: m.badRequest }, { status: 400 });
   }
 
   const { name, email, subject, message, website } = body;
 
   // Validate required fields
   if (!name?.trim() || !email?.trim() || !message?.trim()) {
-    return NextResponse.json({ error: 'Bitte alle Pflichtfelder ausfüllen.' }, { status: 400 });
+    return NextResponse.json({ error: m.required }, { status: 400 });
   }
 
   // Email format check
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json({ error: 'Ungültige E-Mail-Adresse.' }, { status: 400 });
+    return NextResponse.json({ error: m.badEmail }, { status: 400 });
   }
 
   // Spam check (honeypot + heuristics)
@@ -92,7 +111,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error('Resend error:', err);
     return NextResponse.json(
-      { error: 'E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.' },
+      { error: m.sendFailed },
       { status: 500 }
     );
   }

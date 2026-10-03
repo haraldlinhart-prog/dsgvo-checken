@@ -53,6 +53,34 @@ a:hover { text-decoration: underline; }
 }
 .header-logo span { color: var(--accent); }
 
+/* Language switch */
+.langSwitch {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--border);
+  flex-shrink: 0;
+}
+.langSwitch a {
+  color: var(--muted);
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+.langSwitch a:hover { color: var(--fg); text-decoration: none; }
+.langSwitch a.active {
+  color: var(--fg);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+/* Long URLs / words must never widen the page on small screens */
+.resultsUrl, .checkMessage, .errorMsg, .footer { overflow-wrap: anywhere; }
+img { max-width: 100%; height: auto; }
+
 /* Hero */
 .hero {
   padding: 48px 0 32px;

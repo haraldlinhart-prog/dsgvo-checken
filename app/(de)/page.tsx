@@ -1,16 +1,17 @@
-import CheckForm from './CheckForm';
-import ImpressumWidget from './ImpressumWidget';
+import type { Metadata } from 'next';
+import CheckForm from '../CheckForm';
+import ImpressumWidget from '../ImpressumWidget';
+import SiteHeader from '../SiteHeader';
+import { alternates } from '../i18n';
+
+export const metadata: Metadata = {
+  alternates: alternates('/', '/en'),
+};
 
 export default function Home() {
   return (
     <>
-      <header className="header">
-        <div className="wrap">
-          <a className="header-logo" href="/">
-            🔒 <span>DSGVO</span>-checken.de
-          </a>
-        </div>
-      </header>
+      <SiteHeader lang="de" deHref="/" enHref="/en" />
 
       <main>
         <section className="hero">

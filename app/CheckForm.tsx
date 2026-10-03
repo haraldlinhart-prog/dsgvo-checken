@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { checkFormText, type Lang } from './i18n';
 
 interface CheckResult {
   id: string;
@@ -20,17 +21,18 @@ interface ApiResponse {
 }
 
 const TOOLS = [
-  { emoji: '📊', name: 'PAN21counter', desc: 'Besucherzähler', url: 'https://pan21counter.de' },
-  { emoji: '🟢', name: 'site-ok.de', desc: 'Erreichbarkeit prüfen', url: 'https://site-ok.de' },
-  { emoji: '⚡', name: 'PageSpeed-Plus', desc: 'Google-PageSpeed-Check', url: 'https://pagespeed-plus.de' },
-  { emoji: '📄', name: 'Impressum-Free', desc: 'Impressum-Generator', url: 'https://impressum-free.de' },
-  { emoji: '🔗', name: 'kaputte-links.de', desc: 'Defekte Links finden', url: 'https://kaputte-links.de' },
-  { emoji: '🛡️', name: 'Spam-Abwehr', desc: 'Spam-Blockliste', url: 'https://spam-abwehr.de' },
-  { emoji: '🔍', name: 'suchmaschinen.pro', desc: 'SEO auf Ihrer Domain', url: 'https://www.suchmaschinen.pro' },
-  { emoji: '⚖️', name: 'abmahnschutz.pro', desc: 'Abmahnschutz', url: 'https://www.abmahnschutz.pro' },
+  { emoji: '📊', name: 'PAN21counter', url: 'https://pan21counter.de' },
+  { emoji: '🟢', name: 'site-ok.de', url: 'https://site-ok.de' },
+  { emoji: '⚡', name: 'PageSpeed-Plus', url: 'https://pagespeed-plus.de' },
+  { emoji: '📄', name: 'Impressum-Free', url: 'https://impressum-free.de' },
+  { emoji: '🔗', name: 'kaputte-links.de', url: 'https://kaputte-links.de' },
+  { emoji: '🛡️', name: 'Spam-Abwehr', url: 'https://spam-abwehr.de' },
+  { emoji: '🔍', name: 'suchmaschinen.pro', url: 'https://www.suchmaschinen.pro' },
+  { emoji: '⚖️', name: 'abmahnschutz.pro', url: 'https://www.abmahnschutz.pro' },
 ];
 
-export default function CheckForm() {
+export default function CheckForm({ lang = 'de' }: { lang?: Lang }) {
+  const t = checkFormText[lang];
   const [inputUrl, setInputUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ApiResponse | null>(null);
@@ -48,11 +50,11 @@ export default function CheckForm() {
       const resp = await fetch('/api/check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: inputUrl.trim() }),
+        body: JSON.stringify({ url: inputUrl.trim(), lang }),
       });
       const data: ApiResponse = await resp.json();
       if (!resp.ok || data.error) {
-        setApiError(data.error ?? 'Unbekannter Fehler');
+        setApiError(data.error ?? t.unknownError);
       } else {
         setResult(data);
         setTimeout(() => {
@@ -60,7 +62,7 @@ export default function CheckForm() {
         }, 100);
       }
     } catch {
-      setApiError('Verbindungsfehler. Bitte versuchen Sie es erneut.');
+      setApiError(t.connectionError);
     } finally {
       setLoading(false);
     }
@@ -93,19 +95,19 @@ export default function CheckForm() {
           type="url"
           value={inputUrl}
           onChange={(e) => setInputUrl(e.target.value)}
-          placeholder="https://ihre-website.de"
+          placeholder={t.placeholder}
           required
-          aria-label="Website-URL"
+          aria-label={t.inputLabel}
           autoComplete="url"
           inputMode="url"
         />
         <button className="checkBtn" type="submit" disabled={loading}>
           {loading ? (
-            <><span className="spinner" aria-hidden="true" />Prüfe…</>
+            <><span className="spinner" aria-hidden="true" />{t.checking}</>
           ) : result?.requiresBadge ? (
-            'Siegel prüfen & Check starten'
+            t.badgeAndCheck
           ) : (
-            'Jetzt prüfen'
+            t.checkNow
           )}
         </button>
       </form>
@@ -118,17 +120,14 @@ export default function CheckForm() {
           <div className="badgeGateInner">
             <div className="badgeSiegelPreview">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/siegel.png" alt="DSGVO-geprüft Siegel" width="140" height="140" />
+              <img src="/siegel.png" alt={t.sealAlt} width="140" height="140" />
             </div>
-            <h2 className="badgeGateTitle">Erst Siegel einbinden — dann kostenlos prüfen</h2>
-            <p className="badgeGateDesc">
-              Das Siegel zeigt Ihren Besuchern aktive DSGVO-Compliance —
-              und bietet als sichtbares Prüfzeichen Schutz vor Abmahnungen.
-            </p>
+            <h2 className="badgeGateTitle">{t.gateTitle}</h2>
+            <p className="badgeGateDesc">{t.gateDesc}</p>
 
             <ol className="badgeSteps">
               <li>
-                <strong>Kopieren Sie diesen HTML-Code</strong> und fügen Sie das Siegel in den Footer oder die Datenschutzseite Ihrer Website ein:
+                <strong>{t.step1Strong}</strong>{t.step1Rest}
               </li>
             </ol>
 
@@ -139,16 +138,16 @@ export default function CheckForm() {
                 onClick={() => handleCopy(result.badgeHtml ?? '')}
                 type="button"
               >
-                {copied ? '✓ Kopiert!' : 'Code kopieren'}
+                {copied ? t.copied : t.copyCode}
               </button>
             </div>
 
             <div className="badgePreview">
-              <p className="badgePreviewLabel">So sieht das Siegel auf Ihrer Website aus:</p>
+              <p className="badgePreviewLabel">{t.previewLabel}</p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/siegel.png"
-                alt="DSGVO-geprüft Siegel Vorschau"
+                alt={t.sealPreviewAlt}
                 width="120"
                 height="120"
                 style={{ display: 'block', margin: '0 auto' }}
@@ -157,16 +156,14 @@ export default function CheckForm() {
 
             <ol className="badgeSteps" start={2}>
               <li>
-                <strong>Publizieren Sie Ihre Website</strong> mit dem Siegel.
+                <strong>{t.step2Strong}</strong>{t.step2Rest}
               </li>
               <li>
-                <strong>Klicken Sie auf &ldquo;Siegel prüfen & Check starten&rdquo;</strong> oben — wir erkennen das Siegel automatisch und starten den vollständigen DSGVO-Check.
+                <strong>{t.step3Strong}</strong>{t.step3Rest}
               </li>
             </ol>
 
-            <p className="badgeGateNote">
-              💡 Das Siegel schützt Sie als sichtbares Prüfzeichen. So lange es eingebunden ist, können Sie jederzeit einen neuen Check starten und das Prüfdatum aktualisieren.
-            </p>
+            <p className="badgeGateNote">{t.gateNote}</p>
           </div>
         </section>
       )}
@@ -175,21 +172,21 @@ export default function CheckForm() {
       {result && !result.requiresBadge && (
         <section id="results" className="results">
           <p className="resultsUrl">
-            Ergebnis für:{' '}
+            {t.resultFor}{' '}
             <a href={result.url} target="_blank" rel="noopener noreferrer">
               {result.url}
             </a>
             {' '}·{' '}
-            <span className="badgeVerifiedChip">🛡️ DSGVO-geprüft</span>
+            <span className="badgeVerifiedChip">{t.verifiedChip}</span>
           </p>
 
           {counts && (
             <div className="summaryBar">
-              <span style={{ fontWeight: 600, fontSize: '.9rem' }}>Zusammenfassung</span>
+              <span style={{ fontWeight: 600, fontSize: '.9rem' }}>{t.summary}</span>
               <div className="summaryBadges">
-                {counts.green > 0 && <span className="badge badge-green">✓ {counts.green} OK</span>}
-                {counts.yellow > 0 && <span className="badge badge-yellow">⚠ {counts.yellow} Hinweis</span>}
-                {counts.red > 0 && <span className="badge badge-red">✕ {counts.red} Problem</span>}
+                {counts.green > 0 && <span className="badge badge-green">✓ {t.ok(counts.green)}</span>}
+                {counts.yellow > 0 && <span className="badge badge-yellow">⚠ {t.notice(counts.yellow)}</span>}
+                {counts.red > 0 && <span className="badge badge-red">✕ {t.problem(counts.red)}</span>}
               </div>
             </div>
           )}
@@ -223,15 +220,15 @@ export default function CheckForm() {
       {/* Tools grid */}
       <section className="toolsSection">
         <div className="wrap">
-          <h2>Weitere kostenlose Webmaster-Tools</h2>
-          <p>Teil des PAN21-Netzwerks — alle Tools von echten Webmastern für echte Webmaster.</p>
+          <h2>{t.toolsTitle}</h2>
+          <p>{t.toolsDesc}</p>
           <div className="toolsGrid">
-            {TOOLS.map((t) => (
-              <a key={t.url} className="toolCard" href={t.url} target="_blank" rel="noopener noreferrer">
-                <span className="toolEmoji">{t.emoji}</span>
+            {TOOLS.map((tool, i) => (
+              <a key={tool.url} className="toolCard" href={tool.url} target="_blank" rel="noopener noreferrer">
+                <span className="toolEmoji">{tool.emoji}</span>
                 <div>
-                  <div className="toolName">{t.name}</div>
-                  <div className="toolDesc">{t.desc}</div>
+                  <div className="toolName">{tool.name}</div>
+                  <div className="toolDesc">{t.tools[i]}</div>
                 </div>
               </a>
             ))}

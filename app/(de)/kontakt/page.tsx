@@ -1,21 +1,18 @@
-import ContactForm from './ContactForm';
+import ContactForm from '../../ContactForm';
+import SiteHeader from '../../SiteHeader';
+import { alternates } from '../../i18n';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Kontakt | dsgvo-checken.de',
   description: 'Fragen zu DSGVO-Compliance? Schreiben Sie uns — wir helfen Ihnen weiter.',
+  alternates: alternates('/kontakt', '/en/contact'),
 };
 
 export default function KontaktPage() {
   return (
     <>
-      <header className="header">
-        <div className="wrap">
-          <a className="header-logo" href="/">
-            🔒 <span>DSGVO</span>-checken.de
-          </a>
-        </div>
-      </header>
+      <SiteHeader lang="de" deHref="/kontakt" enHref="/en/contact" />
 
       <main>
         <section className="hero" style={{ paddingBottom: '0' }}>
