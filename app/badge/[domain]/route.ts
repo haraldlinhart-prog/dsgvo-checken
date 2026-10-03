@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'edge';
+// Always read the current verification state — Next.js 14 would otherwise keep
+// the first Supabase answer in its data cache indefinitely.
+export const dynamic = 'force-dynamic';
 
 const SUPABASE_URL = 'https://frbvsdumltlzisddrlbi.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZyYnZzZHVtbHRsemlzZGRybGJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNTk4NDQsImV4cCI6MjA5NzgzNTg0NH0.8Vrrs8tIyjdGrD3xGoQ3lkpv4G3LBvy4bpeXpaQ8OGY';
@@ -60,6 +63,7 @@ export async function GET(
           apikey: SUPABASE_ANON_KEY,
           Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
         },
+        cache: 'no-store',
       }
     );
     if (res.ok) {
