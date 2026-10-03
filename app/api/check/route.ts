@@ -99,7 +99,10 @@ const T = {
 
 async function supabaseUpsert(domain: string, badgeVerified: boolean, checks: CheckResult[]) {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/dsgvo_checks`, {
+    // on_conflict=domain: the table's primary key is an id, domain has its own unique
+    // constraint — without this every repeat check failed with 409 and a domain
+    // registered at the badge gate could never become "verified".
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/dsgvo_checks?on_conflict=domain`, {
       method: 'POST',
       headers: {
         apikey: SUPABASE_ANON_KEY,
@@ -114,6 +117,7 @@ async function supabaseUpsert(domain: string, badgeVerified: boolean, checks: Ch
         check_results: checks,
       }),
     });
+    if (!res.ok) console.error(`Supabase upsert failed for ${domain}: ${res.status}`);
   } catch {
     // non-fatal
   }
