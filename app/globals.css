@@ -622,3 +622,54 @@ img { max-width: 100%; height: auto; }
 
 /* Result cards also sit inside the centered hero — keep them left-aligned */
 .checkList, .summaryBar { text-align: left; }
+
+/* Explanation + FAQ below the check form (server-rendered for crawlers) */
+.info {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+.info h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 32px 0 10px;
+}
+.info h2:first-child { margin-top: 0; }
+.info p { color: var(--muted); font-size: .95rem; margin-bottom: 12px; }
+.info strong { color: var(--fg); }
+.info p, .info li { overflow-wrap: break-word; }
+.infoChecks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+.infoChecks li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.info .infoNote {
+  margin-top: 24px;
+  padding: 12px 16px;
+  background: var(--yellow-bg);
+  border: 1px solid #eab30844;
+  border-radius: 8px;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+.faqList { display: flex; flex-direction: column; gap: 10px; }
+.faqItem {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.faqItem h3 { font-size: .95rem; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
+.info .faqItem p { font-size: .875rem; line-height: 1.55; margin-bottom: 0; }

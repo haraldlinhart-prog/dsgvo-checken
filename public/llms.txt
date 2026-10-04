@@ -1,0 +1,37 @@
+# dsgvo-checken.de
+
+> dsgvo-checken.de ist ein kostenloser, automatisierter DSGVO-Check für Websites. Nach Eingabe einer URL ruft das Tool die Seite ab und prüft ihren HTML-Quelltext auf typische technische Datenschutz-Merkmale: HTTPS, Erreichbarkeit, Impressum, Datenschutzerklärung, Cookie-Banner bzw. Consent-Tool, extern geladene Google Fonts sowie Tracking (Google Analytics, Google Tag Manager, Meta Pixel). Die Ergebnisse erscheinen als Ampel (grün, gelb, rot) mit kurzer Erklärung. Die vollständige Auswertung setzt voraus, dass das Siegel von dsgvo-checken.de auf der geprüften Website eingebunden ist. Keine Anmeldung nötig. Betreiber: PAN21.com International LLC (PAN21-Netzwerk, webmaster.plus).
+
+## Kernfunktionen
+
+- SSL / HTTPS: Prüft, ob die Seite – auch nach Weiterleitungen – verschlüsselt ausgeliefert wird.
+- Erreichbarkeit: Prüft, ob die Website innerhalb von zehn Sekunden antwortet.
+- Impressum: Sucht nach einem Hinweis oder Link auf ein Impressum.
+- Datenschutzerklärung: Sucht nach einem Hinweis oder Link auf eine Datenschutzerklärung.
+- Cookie-Banner / Consent: Erkennt Cookie-Hinweise und bekannte Consent-Tools (u. a. Usercentrics, OneTrust, Cookiefirst, Klaro, Borlabs).
+- Google Fonts: Erkennt Schriften, die extern von Google-Servern (fonts.googleapis.com, fonts.gstatic.com) geladen werden.
+- Tracking / Analytics: Erkennt Google Analytics, Google Tag Manager und Meta Pixel und prüft, ob ein Consent-Tool erkennbar ist.
+- Geprüft wird nur die eingegebene Einzelseite; JavaScript wird nicht ausgeführt. Defekte Links prüft das separate Tool kaputte-links.de.
+- Dynamisches Siegel mit dem Datum des letzten Checks.
+
+## Zielgruppe
+
+- Website-Betreiber, Selbstständige, kleine Unternehmen und Vereine im deutschsprachigen Raum
+- Webdesigner, Agenturen und Webmaster, die schnell einen ersten technischen Überblick brauchen, z. B. nach einem Relaunch oder vor dem Livegang
+
+## Wichtige Seiten
+
+- [DSGVO-Check (Deutsch)](https://www.dsgvo-checken.de/): Startseite mit dem Check, Erklärung und FAQ
+- [GDPR Check (English)](https://www.dsgvo-checken.de/en): englische Version des Checks mit FAQ
+- [Kontakt](https://www.dsgvo-checken.de/kontakt): Kontaktformular (Deutsch)
+- [Contact](https://www.dsgvo-checken.de/en/contact): Kontaktformular (Englisch)
+- [Datenschutzerklärung](https://www.dsgvo-checken.de/datenschutz): Datenschutzerklärung von dsgvo-checken.de
+- [Blog](https://www.dsgvo-checken.de/blog): Artikel rund um Datenschutz auf Websites
+
+## Hinweis
+
+Der DSGVO-Check ist eine automatisierte technische Prüfung einzelner Merkmale im Quelltext einer Seite. Er ist keine Rechtsberatung und kann nicht feststellen, ob eine Website insgesamt den Anforderungen der DSGVO entspricht. Für eine verbindliche Einschätzung sollte rechtlicher Rat eingeholt werden.
+
+## English summary
+
+dsgvo-checken.de is a free, automated GDPR check for websites. It fetches a single page and scans its HTML for HTTPS, reachability, a legal notice (Impressum), a privacy policy, a cookie banner or consent tool, externally loaded Google Fonts, and tracking (Google Analytics, Google Tag Manager, Meta Pixel). Results are shown as green/yellow/red with short explanations; the full results require the dsgvo-checken.de seal to be embedded on the checked site. No sign-up needed. English version: https://www.dsgvo-checken.de/en. This is an automated technical check, not legal advice.

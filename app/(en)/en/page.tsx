@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import CheckForm from '../../CheckForm';
+import InfoSection from '../../InfoSection';
 import SiteFooter from '../../SiteFooter';
 import SiteHeader from '../../SiteHeader';
 import { alternates } from '../../i18n';
@@ -24,6 +25,7 @@ export default function HomeEn() {
             <CheckForm lang="en" />
           </div>
         </section>
+        <InfoSection lang="en" />
       </main>
 
       <div className="wrap">
