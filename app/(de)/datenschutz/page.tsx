@@ -78,7 +78,8 @@ export default function Datenschutz() {
             nicht dauerhaft gespeichert. Gespeichert werden nur der Domainname der geprüften
             Website, ob das Siegel gefunden wurde, das Prüfergebnis und der Zeitpunkt der
             Prüfung — damit das dynamische Siegel das Prüfdatum anzeigen kann. Diese Daten
-            werden nicht mit Ihrer IP-Adresse verknüpft.
+            werden nicht mit Ihrer IP-Adresse verknüpft. Die Speicherung erfolgt bei
+            Supabase Inc. (Rechenzentrum in Frankfurt am Main) als Auftragsverarbeiter.
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung / vorvertragliche
             Maßnahmen) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der
             Erbringung des kostenlosen Dienstes).
@@ -88,8 +89,10 @@ export default function Datenschutz() {
           <p>
             Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben
             aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten
-            zwecks Bearbeitung der Anfrage bei uns gespeichert. Diese Daten geben wir nicht
-            ohne Ihre Einwilligung weiter. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+            zwecks Bearbeitung der Anfrage bei uns gespeichert. Die Nachricht wird über den
+            E-Mail-Versanddienst Resend (Resend, Inc., USA) als Auftragsverarbeiter an uns
+            zugestellt. Darüber hinaus geben wir diese Daten nicht ohne Ihre Einwilligung weiter.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
             Die Daten werden gelöscht, sobald sie für die Erreichung des Zwecks ihrer Erhebung
             nicht mehr erforderlich sind, spätestens jedoch nach 6 Monaten.
           </p>
