@@ -1,4 +1,5 @@
 import type { Lang } from './i18n';
+import SuchmaschinenBlogLink from './SuchmaschinenBlogLink';
 
 /** Site header with logo and DE | EN language switch. */
 export default function SiteHeader({
@@ -38,6 +39,8 @@ export default function SiteHeader({
           >
             EN
           </a>
+          {/* suchmaschinen.pro:blog-link */}
+          <SuchmaschinenBlogLink />
         </nav>
       </div>
     </header>
