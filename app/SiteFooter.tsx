@@ -44,6 +44,12 @@ export default function SiteFooter({ lang = 'de' }: { lang?: Lang }) {
           />
         </a>
       </div>
+      {/* Verzeichnis-Banner: Swiss Quality, German Quality, FFA-Links */}
+      <div style={{ display:"flex", justifyContent:"center", gap:"12px", flexWrap:"wrap", margin:"1rem 0 0" }}>
+        <a href="https://www.swiss-quality.de/ref/cfaba43831e4febf02" target="_blank" rel="noopener"><img src="https://www.swiss-quality.de/banner.svg" width="120" height="60" alt="Swiss Quality" /></a>
+        <a href="https://www.german-quality.net/ref/bd0c3ec784766785dc" target="_blank" rel="noopener"><img src="https://www.german-quality.net/banner.svg" width="120" height="60" alt="German Quality" /></a>
+        <a href="https://www.ffa-links.de/ref/69378396404ec98ca4" target="_blank" rel="noopener"><img src="https://www.ffa-links.de/banner.svg" width="120" height="60" alt="FFA-Links" /></a>
+      </div>
     </footer>
   );
 }
