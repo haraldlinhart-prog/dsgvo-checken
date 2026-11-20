@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation</title>
+<meta name="description" content="Google Fonts selbst hosten statt von Google-Servern laden: Praktische Anleitung mit Code-Beispielen für DSGVO-konforme Schriftarten auf Ihrer Website.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation">
+<meta property="og:description" content="Google Fonts selbst hosten statt von Google-Servern laden: Praktische Anleitung mit Code-Beispielen für DSGVO-konforme Schriftarten auf Ihrer Website.">
+<meta property="og:url" content="https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e">
+<meta property="og:site_name" content="dsgvo-checken.de">
+<meta property="og:image" content="https://video.pan21.com/blog-images/img_6affe44e456ef5.45006328.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://video.pan21.com/blog-images/img_6affe44e456ef5.45006328.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation","description":"Google Fonts selbst hosten statt von Google-Servern laden: Praktische Anleitung mit Code-Beispielen für DSGVO-konforme Schriftarten auf Ihrer Website.","inLanguage":"de","datePublished":"2026-11-20T06:10:26.613Z","dateModified":"2026-11-20T06:10:26.613Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e"},"url":"https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e","image":"https://video.pan21.com/blog-images/img_6affe44e456ef5.45006328.jpg","author":{"@type":"Organization","name":"dsgvo-checken.de","url":"https://www.dsgvo-checken.de/"},"publisher":{"@type":"Organization","name":"dsgvo-checken.de","url":"https://www.dsgvo-checken.de/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","name":"Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation","itemListElement":[{"@type":"ListItem","position":1,"name":"dsgvo-checken.de","item":"https://www.dsgvo-checken.de/"},{"@type":"ListItem","position":2,"name":"News","item":"https://www.dsgvo-checken.de/blog"},{"@type":"ListItem","position":3,"name":"Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation","item":"https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e"}]}</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 40px 20px; line-height: 1.7; color: #1a1a1a; }
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.5rem; }
+  p { margin: 1rem 0; }
+  a.back { display: inline-block; margin-bottom: 24px; color: #666; text-decoration: none; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="back" href="https://www.dsgvo-checken.de/">&larr; Zurück zu dsgvo-checken.de</a>
+<h1>Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation</h1>
+<figure style="margin:0 0 1.5rem;"><img src="https://video.pan21.com/blog-images/img_6affe44e456ef5.45006328.jpg" alt="Google Fonts selbst hosten: Schritt-für-Schritt vom Google-Server zur eigenen Installation" style="width:100%;height:auto;border-radius:8px;" loading="lazy"><figcaption style="font-size:0.78rem;color:#8a9a94;margin-top:0.4rem;">Bild: Pixabay</figcaption></figure>
+
+<p>Wer seinen Website-Check durchführt und ein rotes Ergebnis bei Google Fonts erhält, steht vor der praktischen Frage: Wie binde ich die Schriftarten lokal ein, ohne sie weiterhin von Google-Servern zu laden? Die technische Umsetzung ist weniger kompliziert als viele befürchten. In dieser Anleitung erfahren Sie konkret, wie Sie Google Fonts selbst hosten und welche Schritte für eine saubere Implementierung notwendig sind.</p>
+
+<h2>Warum überhaupt selbst hosten statt Google-Server nutzen?</h2>
+
+<p>Wenn Sie Google Fonts direkt von den Google-Servern einbinden, stellt jeder Seitenaufruf Ihrer Website eine Verbindung zu fonts.googleapis.com oder fonts.gstatic.com her. Dabei werden IP-Adressen der Besucher an Google übermittelt. Da IP-Adressen personenbezogene Daten darstellen, ist diese Übermittlung datenschutzrechtlich relevant und erfordert eine Rechtsgrundlage.</p>
+
+<p>Beim Self-Hosting laden die Schriftdateien direkt von Ihrem eigenen Server. Es findet keine Verbindung zu Google statt, keine IP-Adressen werden an Dritte übermittelt. Die rechtlichen Hintergründe und Konsequenzen, die durch bekannte Gerichtsurteile entstanden sind, werden ausführlich im Artikel zum <a href="https://www.dsgvo-checken.de/blog/landgericht-munchen-google-fonts-urteil-2022-was-website-betreiber-jet">Landgericht München Google Fonts Urteil</a> behandelt.</p>
+
+<h2>Schritt 1: Die richtigen Schriftdateien identifizieren und herunterladen</h2>
+
+<p>Zunächst müssen Sie herausfinden, welche Google Fonts Ihre Website aktuell verwendet. Öffnen Sie den Quellcode Ihrer Website und suchen Sie nach Verweisen auf fonts.googleapis.com. Der Link sieht typischerweise so aus:</p>
+
+<p><code>&lt;link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"&gt;</code></p>
+
+<p>Notieren Sie die Schriftfamilie und die benötigten Schriftschnitte. Im Beispiel wären das Roboto in den Stärken 400 (regular) und 700 (bold).</p>
+
+<h3>Download der Font-Dateien</h3>
+
+<p>Es gibt verschiedene Wege, die Dateien zu beschaffen:</p>
+
+<ul>
+<li>Direkter Download über die offizielle Google Fonts Website mit anschließendem manuellen Download der Schriftdateien</li>
+<li>Nutzung von Helper-Tools wie dem Google Webfonts Helper, der die benötigten Dateien zusammenstellt und die CSS-Deklarationen generiert</li>
+<li>Klonen des gesamten Google Fonts Repositories, wenn Sie viele verschiedene Schriften benötigen</li>
+</ul>
+
+<p>Der Google Webfonts Helper ist für die meisten Anwender die praktikabelste Lösung. Geben Sie dort die gewünschte Schriftfamilie ein, wählen Sie die benötigten Schriftschnitte aus und laden Sie das generierte Paket herunter. Sie erhalten eine ZIP-Datei mit den Schriftdateien in verschiedenen Formaten sowie passendem CSS-Code.</p>
+
+<h2>Schritt 2: Font-Dateien auf den eigenen Server hochladen</h2>
+
+<p>Erstellen Sie auf Ihrem Webserver ein eigenes Verzeichnis für Schriftarten. Eine sinnvolle Struktur könnte so aussehen:</p>
+
+<p><code>/fonts/roboto/</code></p>
+
+<p>Laden Sie die heruntergeladenen Schriftdateien in dieses Verzeichnis. Sie benötigen mindestens das WOFF2-Format, da dies von allen modernen Browsern unterstützt wird und die kleinste Dateigröße bietet. WOFF kann als Fallback für ältere Browser dienen.</p>
+
+<p>Achten Sie darauf, dass die Dateien über HTTP erreichbar sind. Testen Sie dies, indem Sie die URL direkt im Browser aufrufen, etwa: <code>https://ihre-domain.de/fonts/roboto/roboto-v30-latin-regular.woff2</code></p>
+
+<h2>Schritt 3: CSS-Deklaration anpassen und einbinden</h2>
+
+<p>Jetzt erstellen Sie die CSS-Regeln, die dem Browser mitteilen, wo er die Schriftdateien findet. Erstellen Sie eine neue CSS-Datei, etwa <code>fonts.css</code>, oder fügen Sie den Code Ihrer bestehenden Stylesheet-Datei hinzu.</p>
+
+<p>Eine typische @font-face-Deklaration für selbst gehostete Google Fonts sieht so aus:</p>
+
+<p><code>@font-face {<br>
+&nbsp;&nbsp;font-family: 'Roboto';<br>
+&nbsp;&nbsp;font-style: normal;<br>
+&nbsp;&nbsp;font-weight: 400;<br>
+&nbsp;&nbsp;font-display: swap;<br>
+&nbsp;&nbsp;src: url('/fonts/roboto/roboto-v30-latin-regular.woff2') format('woff2'),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url('/fonts/roboto/roboto-v30-latin-regular.woff') format('woff');<br>
+}</code></p>
+
+<p>Wiederholen Sie diese Deklaration für jeden benötigten Schriftschnitt. Für Roboto Bold mit font-weight 700 erstellen Sie eine entsprechende zweite @font-face-Regel mit angepasstem font-weight und anderen Dateinamen.</p>
+
+<h3>Die font-display-Eigenschaft richtig setzen</h3>
+
+<p>Die Eigenschaft <code>font-display: swap</code> sorgt dafür, dass der Browser zunächst eine Ersatzschrift anzeigt und zur eigentlichen Schrift wechselt, sobald diese geladen ist. Dies verhindert unsichtbare Texte während des Ladevorgangs und verbessert die Benutzererfahrung.</p>
+
+<h2>Schritt 4: Alte Google-Fonts-Einbindung entfernen</h2>
+
+<p>Dieser Schritt ist entscheidend: Entfernen Sie alle Verweise auf fonts.googleapis.com und fonts.gstatic.com aus Ihrem HTML-Code. Suchen Sie sowohl im Header-Bereich als auch in Stylesheets und Template-Dateien nach entsprechenden Einträgen.</p>
+
+<p>Typische Fundstellen:</p>
+
+<ul>
+<li>Link-Tags im HTML-Head</li>
+<li>@import-Anweisungen in CSS-Dateien</li>
+<li>Einträge in Theme-Einstellungen bei Content-Management-Systemen</li>
+<li>Preload-Tags für Performance-Optimierung</li>
+</ul>
+
+<p>Prüfen Sie nach der Entfernung, ob Ihre Website die Schriftarten korrekt darstellt. Leeren Sie gegebenenfalls den Browser-Cache für einen aussagekräftigen Test.</p>
+
+<h2>Schritt 5: Implementierung in gängigen CMS-Systemen</h2>
+
+<h3>WordPress</h3>
+
+<p>In WordPress können Sie die Schriftdateien in ein Unterverzeichnis Ihres Themes hochladen, etwa <code>/wp-content/themes/ihr-theme/fonts/</code>. Die CSS-Deklarationen fügen Sie in die <code>style.css</code> des Themes oder in eine separate CSS-Datei ein, die Sie über die <code>functions.php</code> einbinden.</p>
+
+<p>Zusätzlich müssen Sie verhindern, dass WordPress oder installierte Plugins Google Fonts nachladen. Viele Cache- und Performance-Plugins bieten Optionen, um externe Schriftarten zu deaktivieren. Alternativ können Sie über die functions.php Google-Font-Anfragen herausfiltern.</p>
+
+<h3>TYPO3, Joomla und andere Systeme</h3>
+
+<p>Das Grundprinzip bleibt identisch: Schriftdateien in einen öffentlich zugänglichen Ordner laden, CSS-Deklarationen erstellen und alte Einbindungen entfernen. Die genaue Umsetzung hängt von der Template-Struktur des jeweiligen Systems ab. Prüfen Sie auch installierte Extensions auf automatische Google-Fonts-Einbindungen.</p>
+
+<h2>Schritt 6: Technische Kontrolle nach der Umstellung</h2>
+
+<p>Nach der Implementierung sollten Sie überprüfen, ob tatsächlich keine Verbindungen mehr zu Google-Servern hergestellt werden. Nutzen Sie dafür die Entwicklertools Ihres Browsers:</p>
+
+<ul>
+<li>Öffnen Sie die Netzwerkanalyse (Network-Tab)</li>
+<li>Laden Sie Ihre Website neu</li>
+<li>Filtern Sie nach "fonts" oder suchen Sie nach "googleapis"</li>
+<li>Es sollten keine Anfragen an Google-Domains erscheinen</li>
+</ul>
+
+<p>Für eine umfassende Überprüfung können Sie auch einen <a href="https://www.dsgvo-checken.de/blog/google-fonts-dsgvo-check-rechtssichere-schriften-einbindung-uberprufen">Google Fonts DSGVO Check</a> durchführen, der automatisiert externe Schriftarten-Einbindungen erkennt.</p>
+
+<h2>Performance-Aspekte beim Self-Hosting</h2>
+
+<p>Selbst gehostete Schriftarten können die Ladezeit Ihrer Website beeinflussen. Achten Sie auf folgende Optimierungen:</p>
+
+<ul>
+<li>Verwenden Sie nur die Schriftschnitte, die Sie tatsächlich benötigen</li>
+<li>Nutzen Sie ausschließlich WOFF2-Dateien für moderne Browser</li>
+<li>Implementieren Sie Preload-Anweisungen für kritische Schriftdateien</li>
+<li>Aktivieren Sie Server-Kompression für Schriftdateien</li>
+<li>Setzen Sie geeignete Cache-Header, damit Browser die Dateien lokal speichern</li>
+</ul>
+
+<p>Ein Preload-Tag im HTML-Head sieht so aus:</p>
+
+<p><code>&lt;link rel="preload" href="/fonts/roboto/roboto-v30-latin-regular.woff2" as="font" type="font/woff2" crossorigin&gt;</code></p>
+
+<h2>Häufige Fehlerquellen und Lösungen</h2>
+
+<p>Wenn die Schriftarten nach der Implementierung nicht korrekt dargestellt werden, liegt meist eine dieser Ursachen vor:</p>
+
+<ul>
+<li><strong>Falsche Pfadangaben:</strong> Prüfen Sie, ob die URL in der CSS-Deklaration wirklich auf die hochgeladenen Dateien zeigt</li>
+<li><strong>CORS-Probleme:</strong> Schriftdateien benötigen das crossorigin-Attribut, wenn sie von einer Subdomain geladen werden</li>
+<li><strong>Fehlende Schriftschnitte:</strong> Wenn Sie font-weight oder font-style verwenden, für die keine @font-face-Regel existiert, greift der Browser auf Systemschriften zurück</li>
+<li><strong>Cache-Probleme:</strong> Alte externe Schriftarten können noch im Browser-Cache liegen</li>
+<li><strong>Doppelte Einbindung:</strong> Manche Plugins oder Themes binden Google Fonts automatisch ein, selbst wenn Sie sie entfernt haben</li>
+</ul>
+
+<h2>Datenschutzrechtliche Einordnung nach der Umstellung</h2>
+
+<p>Wenn Sie Google Fonts selbst hosten, erfolgt die Darstellung der Schriftarten vollständig über Ihre eigene technische Infrastruktur. Es werden keine personenbezogenen Daten an Drittanbieter übermittelt, keine Cookies gesetzt und keine externen Anfragen ausgelöst. Dieser Ansatz ist Teil einer umfassenden DSGVO-Konformität, die Sie systematisch mit einem <a href="https://www.dsgvo-checken.de/blog/ist-meine-website-dsgvo-konform-selbstcheck-in-7-schritten">Website-Selbstcheck</a> überprüfen können.</p>
+
+<p>Beachten Sie, dass die Schriftarten selbst weiterhin unter der Open-Source-Lizenz von Google stehen. Sie dürfen sie frei verwenden, müssen aber keine Lizenzgebühren zahlen oder bestimmte Lizenztexte auf Ihrer Website einbinden.</p>
+
+<h2>Fazit: Technische Umsetzung mit überschaubarem Aufwand</h2>
+
+<p>Google Fonts selbst zu hosten erfordert keine tiefgreifenden Programmierkenntnisse. Mit den beschriebenen Schritten – Download der Dateien, Upload auf den Server, Anpassung der CSS-Deklarationen und Entfernung der alten Einbindung – lässt sich die Umstellung in überschaubarer Zeit umsetzen. Die technische Kontrolle nach der Implementierung stellt sicher, dass tatsächlich keine externen Verbindungen mehr bestehen. So schaffen Sie eine Grundlage für eine datenschutzkonforme Website-Gestaltung, ohne auf ansprechende Typografie verzichten zu müssen.</p>
+<p style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #eee"><a href="https://www.dsgvo-checken.de/blog">Weitere Artikel &rarr;</a></p>
+<footer style="margin-top:2rem;font-size:0.85rem;color:#666"><a href="https://www.dsgvo-checken.de/datenschutz">Datenschutz</a></footer>
+</body>
+</html>
