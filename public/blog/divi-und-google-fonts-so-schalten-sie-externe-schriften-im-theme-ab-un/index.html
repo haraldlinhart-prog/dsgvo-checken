@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divi und Google Fonts: So schalten Sie externe Schriften im Theme ab und prüfen das Ergebnis</title>
+<meta name="description" content="Divi Google Fonts deaktivieren: Anleitung für WordPress mit Divi-Theme-Optionen, Builder-Einstellungen, lokalen Schriften und Kontrolle per Entwicklertools.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.dsgvo-checken.de/blog/divi-und-google-fonts-so-schalten-sie-externe-schriften-im-theme-ab-un">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Divi und Google Fonts: So schalten Sie externe Schriften im Theme ab und prüfen das Ergebnis">
+<meta property="og:description" content="Divi Google Fonts deaktivieren: Anleitung für WordPress mit Divi-Theme-Optionen, Builder-Einstellungen, lokalen Schriften und Kontrolle per Entwicklertools.">
+<meta property="og:url" content="https://www.dsgvo-checken.de/blog/divi-und-google-fonts-so-schalten-sie-externe-schriften-im-theme-ab-un">
+<meta property="og:site_name" content="dsgvo-checken.de">
+<meta property="og:image" content="https://video.pan21.com/blog-images/img_6b052971c1ecb5.92678030.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://video.pan21.com/blog-images/img_6b052971c1ecb5.92678030.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Divi und Google Fonts: So schalten Sie externe Schriften im Theme ab und prüfen das Ergebnis","description":"Divi Google Fonts deaktivieren: Anleitung für WordPress mit Divi-Theme-Optionen, Builder-Einstellungen, lokalen Schriften und Kontrolle per Entwicklertools.","inLanguage":"de","datePublished":"2026-11-24T06:06:46.145Z","dateModified":"2026-11-24T06:06:46.145Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.dsgvo-checken.de/blog/divi-und-google-fonts-so-schalten-sie-externe-schriften-im-theme-ab-un"},"url":"https://www.dsgvo-checken.de/blog/divi-und-google-fonts-so-schalten-sie-externe-schriften-im-theme-ab-un","image":"https://video.pan21.com/blog-images/img_6b052971c1ecb5.92678030.jpg","author":{"@type":"Organization","name":"dsgvo-checken.de","url":"https://www.dsgvo-checken.de/"},"publisher":{"@type":"Organization","name":"dsgvo-checken.de","url":"https://www.dsgvo-checken.de/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","name":"Divi und Google Fonts: So schalten Sie externe Schriften im Theme ab und prüfen das Ergebnis","itemListElement":[{"@type":"ListItem","position":1,"name":"dsgvo-checken.de","item":"https://www.dsgvo-checken.de/"},{"@type":"ListItem","position":2,"name":"News","item":"https://www.dsgvo-checken.de/blog"},{"@type":"ListItem","position":3,"name":"Divi und Google Fonts: So schalten Sie externe Schriften im Theme ab und prüfen das Ergebnis","item":"https://www.dsgvo-checken.de/blog/divi-und-google-fonts-so-schalten-sie-externe-schriften-im-theme-ab-un"}]}</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 40px 20px; line-height: 1.7; color: #1a1a1a; }
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.5rem; }
+  p { margin: 1rem 0; }
+  a.back { display: inline-block; margin-bottom: 24px; color: #666; text-decoration: none; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="back" href="https://www.dsgvo-checken.de/">&larr; Zurück zu dsgvo-checken.de</a>
+<figure style="margin:0 0 1.5rem;"><img src="https://video.pan21.com/blog-images/img_6b052971c1ecb5.92678030.jpg" alt="Divi und Google Fonts: So schalten Sie externe Schriften im Theme ab und prüfen das Ergebnis" style="width:100%;height:auto;border-radius:8px;" loading="lazy"><figcaption style="font-size:0.78rem;color:#8a9a94;margin-top:0.4rem;">Bild: Pixabay</figcaption></figure>
+<p>Divi bringt eine große Auswahl an Schriftarten mit, und viele davon werden standardmäßig von Google-Servern geladen. Wer <strong>Divi Google Fonts deaktivieren</strong> möchte, stößt schnell auf mehrere Stellen, an denen Einstellungen nötig sind: Theme-Optionen, Divi Builder, Child-Theme und Plugins. Dieser Beitrag führt Schritt für Schritt durch die Divi-spezifischen Einstellungen und zeigt, wie Sie anschließend prüfen, ob noch Anfragen an <code>fonts.googleapis.com</code> laufen.</p>
+<p>Zur rechtlichen Einordnung nur so viel: Beim Laden externer Schriften wird die IP-Adresse der Besucher an Google übertragen. Hintergründe dazu finden Sie im <a href="https://www.dsgvo-checken.de/blog/landgericht-munchen-google-fonts-urteil-2022-was-website-betreiber-jet">Beitrag zum Urteil des Landgerichts München</a>. Hier geht es um die praktische Umsetzung. Dieser Text ist keine Rechtsberatung.</p>
+
+<h2>Warum Divi so oft Google Fonts lädt</h2>
+<p>Divi ist ein Theme mit integriertem Visual Builder. Sobald Sie in einem Modul eine Google-Schrift auswählen, wird sie über Googles Server eingebunden. Auch die Standardeinstellungen des Themes können Schriften nachladen, etwa die Schrift für Überschriften und Fließtext in den Theme-Anpassungen. Hinzu kommen Schriften, die in einzelnen Modulen, in Layout-Paketen aus der Divi-Bibliothek oder in Zusatz-Plugins hinterlegt sind. Ein einziges Häkchen reicht deshalb selten aus.</p>
+
+<h2>Schritt 1: Google Fonts in den Divi-Theme-Optionen abschalten</h2>
+<p>Je nach Divi-Version finden Sie die relevante Einstellung an leicht unterschiedlichen Stellen. Orientieren Sie sich an diesem Weg:</p>
+<ul>
+<li>Im WordPress-Backend zu <em>Divi → Theme-Optionen</em> gehen.</li>
+<li>Den Reiter <em>Allgemein</em> öffnen.</li>
+<li>Nach der Option zur Google-Fonts-Unterstützung suchen (in neueren Versionen „Google Fonts aktivieren“ bzw. ähnlich benannt) und diese ausschalten.</li>
+<li>Änderungen speichern.</li>
+</ul>
+<p>Hinweis: Die genaue Bezeichnung kann sich zwischen Versionen unterscheiden. Prüfen Sie daher Ihre installierte Divi-Version. Ist die Option vorhanden, lädt Divi die Google-Schriften nicht mehr über die Google-Server nach. Zusätzlich sollten Sie im selben Bereich die Option für das statische CSS-Datei-Caching im Blick behalten. Leeren Sie nach jeder Änderung den Divi-Cache.</p>
+
+<h2>Schritt 2: Schriften im Divi Builder und in Vorlagen prüfen</h2>
+<p>Auch wenn die globale Option aus ist, können einzelne Elemente noch auf eine Google-Schrift verweisen. Gehen Sie so vor:</p>
+<h3>Globale Schriften im Theme Customizer</h3>
+<p>Unter <em>Design → Customizer → Allgemeine Einstellungen → Typografie</em> legen Sie Schrift für Überschriften und Text fest. Stellen Sie hier eine Systemschrift oder Ihre lokal hochgeladene Schrift ein.</p>
+<h3>Module im Divi Builder</h3>
+<p>Öffnen Sie wichtige Seiten im Builder und kontrollieren Sie in Textmodulen, Buttons, Menüs und Kopfzeilen den Reiter <em>Design → Text/Schrift</em>. Jedes Modul, in dem noch eine Google-Schrift ausgewählt ist, kann die Anfrage wieder auslösen. Auch im Theme Builder (Kopfzeile, Fußzeile, Beitragsvorlagen) lohnt sich der Blick.</p>
+<h3>Voreinstellungen und Layouts</h3>
+<p>Divi-Voreinstellungen (Presets) und importierte Layouts enthalten oft eigene Schriftangaben. Ändern Sie dort die Schrift oder passen Sie die Preset-Einstellungen an, sonst taucht die Google-Schrift an vielen Stellen erneut auf.</p>
+
+<h2>Schritt 3: Lokale Schriften einbinden</h2>
+<p>Ohne Google-Server brauchen Sie Alternativen. Zwei Wege bieten sich an:</p>
+<ul>
+<li><strong>Systemschriften:</strong> Sie liegen bereits auf dem Gerät der Besucher, es wird nichts nachgeladen. Das ist die einfachste Lösung.</li>
+<li><strong>Eigene Schriftdateien:</strong> Laden Sie die Schriften in einem webtauglichen Format (etwa WOFF2) auf Ihren eigenen Server und binden Sie sie per <code>@font-face</code> ein. Beachten Sie dabei die Lizenz der jeweiligen Schrift.</li>
+</ul>
+<p>Divi erlaubt im Builder den Upload eigener Schriften über die Schriftauswahl („Hochladen“). Die hochgeladenen Dateien werden dann von Ihrer Domain ausgeliefert. Alternativ tragen Sie das <code>@font-face</code>-CSS in ein Child-Theme oder unter <em>Divi → Theme-Optionen → Benutzerdefiniertes CSS</em> ein. Eine ausführliche technische Anleitung zum Download und zur Einbindung steht im Beitrag <a href="https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e">Google Fonts selbst hosten</a>.</p>
+
+<h2>Schritt 4: Kontrolle mit den Browser-Entwicklertools</h2>
+<p>Erst die Messung zeigt, ob wirklich keine Verbindung mehr zu Google besteht. So prüfen Sie es in Chrome, Firefox oder Edge:</p>
+<ul>
+<li>Die Seite in einem privaten Fenster öffnen und mit <em>F12</em> die Entwicklertools starten.</li>
+<li>Den Reiter <em>Netzwerk</em> (Network) wählen.</li>
+<li>Die Option „Cache deaktivieren“ aktivieren und die Seite mit <em>Strg+Shift+R</em> neu laden.</li>
+<li>Im Filterfeld nach <code>fonts.googleapis.com</code> und <code>fonts.gstatic.com</code> suchen.</li>
+</ul>
+<p>Bleibt die Liste leer, wird auf dieser Seite nichts von diesen Domains geladen. Erscheinen Treffer, klicken Sie darauf: Die Spalte „Initiator“ zeigt, welche Datei oder welches Skript die Anfrage auslöst. Das führt Sie oft direkt zu einem Plugin oder Modul.</p>
+<p>Prüfen Sie nicht nur die Startseite, sondern auch Unterseiten, Blogbeiträge, Kontaktformulare und Seiten mit besonderen Layouts. Testen Sie außerdem mit leerem Cache und eingeloggt wie ausgeloggt, da der Visual Builder eigene Ressourcen laden kann.</p>
+
+<h2>Wenn trotzdem Anfragen laufen: typische Ursachen</h2>
+<ul>
+<li><strong>Caching:</strong> Alte, zusammengefasste CSS-Dateien enthalten noch die Google-Schrift. Divi-Cache, Plugin-Cache und ggf. CDN leeren.</li>
+<li><strong>Child-Theme:</strong> Ein <code>@import</code> in der <code>style.css</code> oder ein <code>wp_enqueue_style</code> in der <code>functions.php</code> verweist noch auf Google.</li>
+<li><strong>Plugins:</strong> Kontaktformulare, Slider, Social-Feeds oder Zusatzmodule für Divi laden eigene Schriften nach.</li>
+<li><strong>Eingebettete Inhalte:</strong> Karten oder Videos können weitere Verbindungen zu Drittanbietern aufbauen. Das sind dann andere Domains und ein eigenes Thema.</li>
+<li><strong>Optimierungs-Plugins:</strong> Manche Tools speichern Schriften zwischen oder fügen sie wieder ein. Prüfen Sie deren Font-Einstellungen.</li>
+</ul>
+
+<h2>Dauerhaft im Blick behalten</h2>
+<p>Nach Theme-Updates, neuen Layouts oder Plugin-Installationen kann sich die Situation ändern. Wiederholen Sie die Netzwerkprüfung daher in regelmäßigen Abständen und dokumentieren Sie den Stand mit Datum und Screenshot. Wie eine strukturierte Kontrolle aussehen kann, beschreibt der Beitrag <a href="https://www.dsgvo-checken.de/blog/google-fonts-dsgvo-check-rechtssichere-schriften-einbindung-uberprufen">Google Fonts DSGVO-Check</a>.</p>
+
+<h2>Fazit</h2>
+<p>Wer bei Divi Google Fonts deaktivieren will, sollte nicht bei einer einzelnen Option stehen bleiben: Theme-Optionen, Customizer, Builder-Module, Presets, Child-Theme und Plugins gehören zusammen betrachtet. Lokale oder Systemschriften ersetzen die externen Schriften, und die Netzwerkansicht der Entwicklertools liefert den Beleg, ob noch Anfragen an Google gehen. Eine absolute Gewissheit für jede Konstellation kann keine Anleitung bieten. Bei Unsicherheiten zur rechtlichen Bewertung wenden Sie sich an eine fachkundige Stelle.</p>
+<p style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #eee"><a href="https://www.dsgvo-checken.de/blog">Weitere Artikel &rarr;</a></p>
+<footer style="margin-top:2rem;font-size:0.85rem;color:#666"><a href="https://www.dsgvo-checken.de/datenschutz">Datenschutz</a></footer>
+</body>
+</html>
