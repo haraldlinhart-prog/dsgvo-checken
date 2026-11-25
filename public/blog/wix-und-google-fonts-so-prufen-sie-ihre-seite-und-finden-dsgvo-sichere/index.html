@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor</title>
+<meta name="description" content="Lädt Ihre Wix-Seite Schriften von Google-Servern? So prüfen Sie es, wählen Schriften im Editor, behandeln Velo und Apps und klären den AVV mit Wix.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.dsgvo-checken.de/blog/wix-und-google-fonts-so-prufen-sie-ihre-seite-und-finden-dsgvo-sichere">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor">
+<meta property="og:description" content="Lädt Ihre Wix-Seite Schriften von Google-Servern? So prüfen Sie es, wählen Schriften im Editor, behandeln Velo und Apps und klären den AVV mit Wix.">
+<meta property="og:url" content="https://www.dsgvo-checken.de/blog/wix-und-google-fonts-so-prufen-sie-ihre-seite-und-finden-dsgvo-sichere">
+<meta property="og:site_name" content="dsgvo-checken.de">
+<meta property="og:image" content="https://video.pan21.com/blog-images/img_6b067aa7258357.08060907.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://video.pan21.com/blog-images/img_6b067aa7258357.08060907.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor","description":"Lädt Ihre Wix-Seite Schriften von Google-Servern? So prüfen Sie es, wählen Schriften im Editor, behandeln Velo und Apps und klären den AVV mit Wix.","inLanguage":"de","datePublished":"2026-11-25T06:05:31.188Z","dateModified":"2026-11-25T06:05:31.188Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.dsgvo-checken.de/blog/wix-und-google-fonts-so-prufen-sie-ihre-seite-und-finden-dsgvo-sichere"},"url":"https://www.dsgvo-checken.de/blog/wix-und-google-fonts-so-prufen-sie-ihre-seite-und-finden-dsgvo-sichere","image":"https://video.pan21.com/blog-images/img_6b067aa7258357.08060907.jpg","author":{"@type":"Organization","name":"dsgvo-checken.de","url":"https://www.dsgvo-checken.de/"},"publisher":{"@type":"Organization","name":"dsgvo-checken.de","url":"https://www.dsgvo-checken.de/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","name":"Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor","itemListElement":[{"@type":"ListItem","position":1,"name":"dsgvo-checken.de","item":"https://www.dsgvo-checken.de/"},{"@type":"ListItem","position":2,"name":"News","item":"https://www.dsgvo-checken.de/blog"},{"@type":"ListItem","position":3,"name":"Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor","item":"https://www.dsgvo-checken.de/blog/wix-und-google-fonts-so-prufen-sie-ihre-seite-und-finden-dsgvo-sichere"}]}</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 40px 20px; line-height: 1.7; color: #1a1a1a; }
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.5rem; }
+  p { margin: 1rem 0; }
+  a.back { display: inline-block; margin-bottom: 24px; color: #666; text-decoration: none; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="back" href="https://www.dsgvo-checken.de/">&larr; Zurück zu dsgvo-checken.de</a>
+<h1>Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor</h1>
+<figure style="margin:0 0 1.5rem;"><img src="https://video.pan21.com/blog-images/img_6b067aa7258357.08060907.jpg" alt="Wix und Google Fonts: So prüfen Sie Ihre Seite und finden DSGVO-sichere Schriften im Editor" style="width:100%;height:auto;border-radius:8px;" loading="lazy"><figcaption style="font-size:0.78rem;color:#8a9a94;margin-top:0.4rem;">Bild: Pixabay</figcaption></figure>
+<p>Wer eine Website mit Wix baut, wählt Schriften meist mit wenigen Klicks. Ob dabei im Hintergrund Verbindungen zu Google-Servern entstehen, sieht man der Oberfläche nicht an. Dieser Artikel zeigt Wix-Nutzern, wie sie das selbst nachprüfen, wo im Editor Stellschrauben liegen und was bei Velo, Custom-Code und eingebetteten Apps zu beachten ist. Die allgemeine Rechtslage zu Google Fonts behandeln wir hier nur am Rande, dazu gibt es ausführliche Beiträge auf dieser Seite.</p>
+
+<h2>Kurz zum Hintergrund</h2>
+<p>Das Problem entsteht, wenn der Browser Schriftdateien direkt von Google-Servern lädt und dabei die IP-Adresse der Besucher übermittelt wird. Eine Einbindung vom eigenen Server oder vom Server des Plattformanbieters ist dagegen eine andere Situation. Für Wix-Seiten kommt es also darauf an, woher die Schriften tatsächlich geladen werden.</p>
+
+<h2>Schritt 1: Prüfen, ob Ihre Wix-Seite Google-Server anfragt</h2>
+<p>Verlassen Sie sich nicht auf Annahmen, sondern messen Sie. Das geht ohne Spezialwerkzeuge im Browser:</p>
+<ol>
+<li>Öffnen Sie Ihre veröffentlichte Seite (nicht den Editor) in einem Browser, am besten in einem privaten Fenster.</li>
+<li>Öffnen Sie die Entwicklertools (meist F12) und wechseln Sie zum Reiter „Netzwerk“.</li>
+<li>Laden Sie die Seite neu und filtern Sie nach „Font“ oder „Schrift“.</li>
+<li>Sehen Sie sich die Spalte mit der Domain an. Tauchen <em>fonts.googleapis.com</em> oder <em>fonts.gstatic.com</em> auf, wird von Google geladen. Stammen die Dateien von Wix-Domains, werden sie über die Plattform ausgeliefert.</li>
+</ol>
+<p>Prüfen Sie nicht nur die Startseite, sondern auch Unterseiten mit Formularen, Shop, Blog oder Buchungen. Dort können andere Komponenten andere Schriften nachladen. Eine ergänzende Anleitung zur Kontrolle finden Sie im Beitrag <a href="https://www.dsgvo-checken.de/blog/google-fonts-dsgvo-check-rechtssichere-schriften-einbindung-uberprufen">Google Fonts DSGVO Check</a>.</p>
+
+<h2>Schritt 2: Den Schriftenbestand im Wix-Editor einordnen</h2>
+<h3>Was Wix im Editor anbietet</h3>
+<p>Im Editor wählen Sie Schriften über das Textfeld oder über das Design-Menü mit den Seitenschriften („Site-Design“, „Text-Themes“). Der Katalog enthält Schriften, die Wix selbst bereitstellt. Nach Angaben der Plattform werden diese Schriften über Wix-Infrastruktur ausgeliefert, nicht direkt von Google. Prüfen Sie das trotzdem mit Schritt 1, denn Angaben ändern sich und Ihre Seite kann zusätzliche Elemente enthalten.</p>
+<h3>Praktisches Vorgehen</h3>
+<ul>
+<li>Legen Sie im Design-Menü wenige Seitenschriften fest und verwenden Sie diese konsequent, statt jeden Text einzeln zu formatieren. Das erleichtert die Kontrolle.</li>
+<li>Notieren Sie, welche Schriften tatsächlich in Gebrauch sind, und gleichen Sie diese mit der Netzwerkliste aus Schritt 1 ab.</li>
+<li>Falls Sie eigene Schriftdateien hochladen können, ist das ein Weg, bewusst gewählte Schriften selbst bereitzustellen. Beachten Sie dabei die Lizenz der Schrift. Wie das Prinzip allgemein funktioniert, erklärt <a href="https://www.dsgvo-checken.de/blog/google-fonts-selbst-hosten-schritt-fur-schritt-vom-google-server-zur-e">Google Fonts selbst hosten</a>.</li>
+<li>Gibt es eine Schrift, die im Netzwerk-Reiter von Google geladen wird, ersetzen Sie sie im Editor durch eine Schrift, die nachweislich nicht von Google kommt, und messen erneut.</li>
+</ul>
+
+<h2>Schritt 3: Velo, Custom-Code und eingebettete Inhalte</h2>
+<p>Hier entstehen in der Praxis die meisten Überraschungen, weil Sie eigenen Code ergänzen und Wix darauf keinen Einfluss nimmt.</p>
+<h3>Velo und Seitencode</h3>
+<p>Wenn Sie mit Velo arbeiten, prüfen Sie Ihr Projekt auf Importe von Stylesheets, etwa <em>@import</em>-Anweisungen oder Link-Tags, die auf Google Fonts verweisen. Diese stammen dann nicht aus dem Wix-Katalog, sondern aus Ihrem eigenen Code. Entfernen Sie sie oder ersetzen Sie sie durch selbst bereitgestellte Dateien.</p>
+<h3>Custom-Code und Tracking-Snippets</h3>
+<p>Über die Einstellungen lassen sich Code-Schnipsel in den Kopf- oder Fußbereich einfügen. Kopierte Embed-Codes von Drittanbietern bringen oft eigene Schriften mit. Suchen Sie dort nach „fonts.googleapis.com“. Dieselbe Sorgfalt gilt für Analysewerkzeuge, wie im Beitrag zu <a href="https://www.dsgvo-checken.de/blog/google-analytics-4-einbauen-und-danach-prufen-was-bei-der-dsgvo-konfor">Google Analytics 4</a> beschrieben.</p>
+<h3>HTML-Einbettungen und Apps</h3>
+<ul>
+<li><strong>HTML-iFrame-Elemente:</strong> Der dort eingefügte Code wird eigenständig geladen und kann Schriften von Google ziehen.</li>
+<li><strong>Apps aus dem Wix App Market:</strong> Manche stammen von Drittanbietern und laden eigene Ressourcen. Prüfen Sie jede App einzeln im Netzwerk-Reiter, nachdem Sie sie aktiviert haben.</li>
+<li><strong>Karten, Videos, Formulare, Widgets:</strong> Externe Dienste bringen häufig eigene Schriften und eigene Datenübermittlungen mit. Das ist ein getrenntes Thema, das Sie ebenfalls bewerten müssen.</li>
+</ul>
+
+<h2>Schritt 4: Was Wix vertraglich abdeckt (AVV)</h2>
+<p>Wix verarbeitet als Plattformbetreiber personenbezogene Daten im Auftrag der Seitenbetreiber. Dafür sieht die DSGVO einen Auftragsverarbeitungsvertrag (AVV) vor. Wix stellt nach unserem Kenntnisstand Datenverarbeitungsbedingungen bereit, die Sie in Ihrem Konto bzw. auf der Wix-Website finden und prüfen sollten. Kontrollieren Sie selbst den aktuellen Stand und archivieren Sie die gültige Fassung.</p>
+<p>Wichtig ist die Grenze dieser Abdeckung: Der AVV betrifft die Verarbeitung durch Wix. Er ersetzt nicht Ihre Prüfung dessen, was Sie selbst einbauen. Von Ihnen ergänzter Code, Apps fremder Anbieter oder externe Einbettungen sind eigene Verarbeitungen, für die Sie gegebenenfalls separate Verträge, Rechtsgrundlagen und Hinweise in der Datenschutzerklärung benötigen. Welche Rechtsgrundlage jeweils passt, ist eine Einzelfallfrage; bei Unsicherheit empfiehlt sich rechtliche Beratung.</p>
+
+<h2>Schritt 5: Dokumentieren und regelmäßig wiederholen</h2>
+<ul>
+<li>Halten Sie das Prüfdatum, die geprüften Seiten und das Ergebnis des Netzwerk-Tests fest.</li>
+<li>Wiederholen Sie die Prüfung nach jeder Änderung: neue App, neues Template, neuer Code-Schnipsel oder Schriftwechsel.</li>
+<li>Passen Sie die Datenschutzerklärung an, falls tatsächlich externe Dienste eingebunden sind.</li>
+</ul>
+
+<h2>Typische Fehler bei Wix-Seiten</h2>
+<ul>
+<li>Nur den Editor prüfen, nicht die veröffentlichte Seite.</li>
+<li>Annehmen, dass alles konform sei, weil ein Baukasten genutzt wird.</li>
+<li>Kopierten Embed-Code nicht auf Schriftverweise durchsehen.</li>
+<li>Nur die Startseite testen.</li>
+</ul>
+
+<h2>Fazit</h2>
+<p>Ob Ihre Wix-Seite Google Fonts von Google-Servern lädt, lässt sich in wenigen Minuten im Netzwerk-Reiter klären. Schriften aus dem Wix-Bestand sind meist unkritisch, Risiken entstehen vor allem durch Velo-Code, Custom-Snippets, Einbettungen und Apps. Der AVV mit Wix deckt die Plattform ab, nicht Ihre eigenen Ergänzungen. Prüfen Sie daher regelmäßig und dokumentieren Sie das Ergebnis. Eine Garantie für vollständige Konformität ergibt sich daraus nicht, aber Sie schaffen eine belastbare Grundlage.</p>
+<p style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #eee"><a href="https://www.dsgvo-checken.de/blog">Weitere Artikel &rarr;</a></p>
+<footer style="margin-top:2rem;font-size:0.85rem;color:#666"><a href="https://www.dsgvo-checken.de/datenschutz">Datenschutz</a></footer>
+</body>
+</html>
