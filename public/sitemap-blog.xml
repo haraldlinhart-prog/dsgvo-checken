@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.dsgvo-checken.de/blog</loc>
-    <lastmod>2026-11-25</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dsgvo-checken.de/blog/welche-cookies-setzt-meine-website-so-finden-sie-es-schritt-fur-schrit</loc>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.dsgvo-checken.de/blog/wix-und-google-fonts-so-prufen-sie-ihre-seite-und-finden-dsgvo-sichere</loc>
